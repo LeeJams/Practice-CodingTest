@@ -34,6 +34,7 @@ function solution_my(price, money, count) {
 console.log(solution_my(5, 55, 5));
 
 // 가우스 공식
+//첫항+....+마지막항=1/2×항수×(첫항+마지막항)
 function solution_best(price, money, count) {
     const tmp = price * count * (count + 1) / 2 - money;
     return tmp > 0 ? tmp : 0;
