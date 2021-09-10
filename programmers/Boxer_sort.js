@@ -31,53 +31,68 @@
   [60,70,60]	    ["NNN","NNN","NNN"]	          [2,1,3]
 */
 
-function solution(weights, head2head) {
+function solution_my(weights, head2head) {
   const result = []
   
   head2head.forEach((n, i) => {
-      let sum = 0;
+      let gameNum = 0;
+      let win = 0;
       let winFromHeavyer = 0;
+      
       n.split("").forEach((m, j) => {
-          sum += m === "N" ? 0 : m === "L" ? -1 : 1;
+          gameNum += m !== "N" ? 1 : 0;
+          win += m === "W" ? 1 : 0;
           winFromHeavyer += weights[i] < weights[j] && m === "W" ? 1 : 0;
       });
-      result.push({sum, idx: i+1, weight: weights[i], winFromHeavyer}) 
+      
+      result.push({sum: win / gameNum , idx: i+1, weight: weights[i], winFromHeavyer}) 
   });
   
   result.sort((a, b) => {
-      if(b.sum > a.sum){
+      if (b.sum > a.sum) {
           return 1;
-      }else if(b.sum < a.sum){
+      } else if (b.sum < a.sum) {
           return -1;
-      }else{
-          if(b.winFromHeavyer > a.winFromHeavyer){
-              return 1;
-          }else if(b.winFromHeavyer < a.winFromHeavyer){
-              return -1;
-          }else{
-              if(b.weight > a.weight){
-                  return 1;
-              }else if(b.weight < a.weight){
-                  return -1;
-              }else{
-                  if(b.idx < a.idx){
-                      return 1;
-                  }else if(b.idx > a.idx){
-                      return -1;
-                  }else{
-                      return 0;
-                  }
-              }
-          }
-          
+      } else if (b.winFromHeavyer > a.winFromHeavyer) {
+          return 1;
+      } else if (b.winFromHeavyer < a.winFromHeavyer) {
+          return -1;
+      } else if (b.weight > a.weight) {
+          return 1;
+      } else if (b.weight < a.weight) {
+          return -1;
+      } else if (b.idx < a.idx) {
+          return 1;
+      } else if (b.idx > a.idx) {
+          return -1;
+      } else {
+          return 0;
       }
   });
-  
   console.log(result)
   
   return result.map(n => n.idx);
 }
 
-console.log(solution([50,82,75,120], ["NLWL","WNLL","LWNW","WWLN"]))
-console.log(solution([145,92,86], ["NLW","WNL","LWN"]))
-console.log(solution([60,70,60], ["NNN","NNN","NNN"]))
+console.log(solution_my([50, 82, 75, 120], ["NLWL", "WNLL", "LWNW", "WWLN"]));
+console.log(solution_my([145, 92, 86], ["NLW", "WNL", "LWN"]));
+console.log(solution_my([60, 70, 60], ["NNN", "NNN", "NNN"]));
+
+
+function solution_best(weights, head2head) {
+    return head2head.map((l, i) => l.split('').reduce((acc, v, j) => {
+                acc[0] += v === 'W' ? 1 : 0;
+                acc[1] += v === 'W' ? weights[i] < weights[j] ? 1 : 0 : 0;
+                acc[2] += v === 'L' ? 1 : 0
+                return acc;
+            }, [0, 0, 0])
+            )
+            .map((v) => [v[0] / (v[0] + v[2]), v[1]])
+            .map((v, i) => [i + 1, {t: v[0], s: v[1], w : weights[i]}])
+            .sort((a, b) => b[1].t - a[1].t || b[1].s - a[1].s || b[1].w - a[1].w || a[0] - b[0])
+            .map((v) => v[0]);
+}
+
+console.log(solution_best([50, 82, 75, 120], ["NLWL", "WNLL", "LWNW", "WWLN"]));
+console.log(solution_best([145, 92, 86], ["NLW", "WNL", "LWN"]));
+console.log(solution_best([60, 70, 60], ["NNN", "NNN", "NNN"]));
