@@ -31,7 +31,7 @@
   [60,70,60]	    ["NNN","NNN","NNN"]	          [2,1,3]
 */
 
-function solution_my(weights, head2head) {
+/* function solution_my(weights, head2head) {
   const result = []
   
   head2head.forEach((n, i) => {
@@ -69,6 +69,28 @@ function solution_my(weights, head2head) {
           return 0;
       }
   });
+  console.log(result)
+  
+  return result.map(n => n.idx);
+} */
+function solution_my(weights, head2head) {
+  const result = []
+  
+  head2head.forEach((n, i) => {
+      let gameNum = 0;
+      let win = 0;
+      let winFromHeavyer = 0;
+      
+      n.split("").forEach((m, j) => {
+          gameNum += m !== "N" ? 1 : 0;
+          win += m === "W" ? 1 : 0;
+          winFromHeavyer += weights[i] < weights[j] && m === "W" ? 1 : 0;
+      });
+      
+      result.push({sum: win / gameNum , idx: i+1, weight: weights[i], winFromHeavyer}) 
+  });
+  
+  result.sort((a, b) => b.sum - a.sum || b.winFromHeavyer - a.winFromHeavyer || b.weight - a.weight || a.idx - b.idx);
   console.log(result)
   
   return result.map(n => n.idx);
