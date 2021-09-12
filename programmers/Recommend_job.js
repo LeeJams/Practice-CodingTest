@@ -71,3 +71,29 @@ console.log(
     [7, 5]
   )
 );
+
+function solution_best(table, languages, preference) {
+    return table.map((r) => r.split(' '))
+                .map((t) => [...t.splice(0, 1), t])
+                .map(([t, arr]) => [t,
+                     languages.reduce((acc, l, i)=> {
+                        acc += (5 - (arr.indexOf(l) === -1 ? 5 : arr.indexOf(l)))
+                                    * preference[i];
+                        return acc;
+                     }, 0)])
+                .sort((a, b) => b[1] - a[1] - (a[0] < b[0]))[0][0]
+}
+
+console.log(
+  solution_best(
+    [
+      "SI JAVA JAVASCRIPT SQL PYTHON C#",
+      "CONTENTS JAVASCRIPT JAVA PYTHON SQL C++",
+      "HARDWARE C C++ PYTHON JAVA JAVASCRIPT",
+      "PORTAL JAVA JAVASCRIPT PYTHON KOTLIN PHP",
+      "GAME C++ C# JAVASCRIPT C JAVA",
+    ],
+    ["JAVA", "JAVASCRIPT"],
+    [7, 5]
+  )
+);
