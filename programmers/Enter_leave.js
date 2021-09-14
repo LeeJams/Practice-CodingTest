@@ -44,6 +44,13 @@ enter	      leave	      result
 */
 
 // 어려운데 시간이 없어 다시 풀어야 함
+
+//고려해야 하는 경우의 수
+// 사람 x와 y가 만났는지를 고려할 때
+// y가 x보다 먼저 와서 나중에 떠나는 경우
+// y가 x보다 나중에 와서 먼저 떠나는 경우
+// y가 x보다 나중에 와서 나중에 떠났지만, y보다 나중에 온 z가 x보다 먼저 떠나서 y와 x가 만났음을 증명해주는 경우
+
 function solution(enter, leave) {
   const result = [];
   leave.forEach((n, idx) => {
@@ -54,8 +61,8 @@ function solution(enter, leave) {
   return result;
 }
 
-console.log(solution([1,3,2], [1,2,3]));
-console.log(solution([1,4,2,3], [2,1,3,4]));
-console.log(solution([3,2,1], [2,1,3]));
-console.log(solution([3,2,1], [1,3,2]));
-console.log(solution([1,4,2,3], [2,1,4,3]));
+console.log(solution([1,3,2], [1,2,3])); // [0,1,1]
+console.log(solution([1,4,2,3], [2,1,3,4])); // [2,2,1,3]
+console.log(solution([3,2,1], [2,1,3])); // [1,1,2]
+console.log(solution([3,2,1], [1,3,2])); // [2,2,2]
+console.log(solution([1,4,2,3], [2,1,4,3])); // [2,2,0,2]
