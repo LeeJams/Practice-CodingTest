@@ -1,4 +1,6 @@
 /* 
+https://programmers.co.kr/learn/courses/30/lessons/86048
+
 입실 퇴실
 
 사회적 거리두기를 위해 회의실에 출입할 때 명부에 이름을 적어야 합니다. 
@@ -40,3 +42,20 @@ enter	      leave	      result
 [3,2,1]	    [1,3,2]	    [2,2,2]
 [1,4,2,3]	  [2,1,4,3]	  [2,2,0,2]
 */
+
+// 어려운데 시간이 없어 다시 풀어야 함
+function solution(enter, leave) {
+  const result = [];
+  leave.forEach((n, idx) => {
+      const enterNum = enter.findIndex(m => m === n);
+      result[n-1] = enterNum === idx ? 0 : 1;
+  })
+  console.log(result);
+  return result;
+}
+
+console.log(solution([1,3,2], [1,2,3]));
+console.log(solution([1,4,2,3], [2,1,3,4]));
+console.log(solution([3,2,1], [2,1,3]));
+console.log(solution([3,2,1], [1,3,2]));
+console.log(solution([1,4,2,3], [2,1,4,3]));
