@@ -24,7 +24,7 @@ https://programmers.co.kr/learn/courses/30/lessons/12913
 땅을 밟아 16점이 최고점이 되므로 16을 return 하면 됩니다.
 */
 
-function solution(land) {
+/* function solution(land) {
   let mapArr = [0, 0, 0, 0];
   let answer = 0;
   for(let i = 0; i < 4; i++){
@@ -45,8 +45,23 @@ function solution(land) {
     answer = Math.max(...mapArr) > answer ? Math.max(...mapArr) : answer;
   }
   return answer
+} */
+function solution(land) {
+  let dp = land.map((n, idx) => n.map(m => idx===0 ? m : 0));
+  for(let i = 1; i < land.length; i++){
+    for(let j = 0; j < 4; j++){
+      for(let k = 0; k < 4; k++){
+        if(j != k)
+          dp[i][j] = Math.max(dp[i][j], land[i][j] + dp[i-1][k]);
+      }
+    }
+  }
+  console.log(dp)
+
+  return Math.max(...dp[land.length - 1]);
 }
 
-console.log(solution([[4,3,2,1],[2,2,2,1],[6,6,6,4],[8,7,6,5]]))
-//console.log(solution([[1,2,3,5],[5,6,7,8],[4,3,2,1]])) // 16
+// console.log(solution([[4,3,2,1],[2,2,2,1],[6,6,6,4],[8,7,6,5]]))
+// console.log(solution([[9, 5, 2, 3], [9, 8, 6, 7], [8, 9, 7, 1], [100, 9, 8, 1]]))
+console.log(solution([[1,2,3,5],[5,6,7,8],[4,3,2,1]])) // 16
 //console.log(solution([[1,2,3,5],[5,6,7,8],[4,3,2,1],[6,5,4,3]])) // 21
