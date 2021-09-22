@@ -35,3 +35,11 @@ function loopArr(arr, direction, steps) {
 
 console.log(loopArr([1, 5, 87, 45, 8, 8], 'left', 2)); //[87, 45, 8, 8, 1, 5]
 console.log(loopArr([1, 5, 87, 45, 8, 8], 'right', 2)); //[8, 8, 1, 5, 87, 45]
+
+function loopArr_best(arr, direction, steps) {
+  const i = direction == 'left' ? steps : -steps;
+  return arr.slice(i).concat(arr.slice(0, i));
+}
+
+console.log(loopArr_best([1, 5, 87, 45, 8, 8], 'left', 2)); //[87, 45, 8, 8, 1, 5]
+console.log(loopArr_best([1, 5, 87, 45, 8, 8], 'right', 2)); //[8, 8, 1, 5, 87, 45]
