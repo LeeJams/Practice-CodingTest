@@ -56,7 +56,6 @@ function solution(land) {
       }
     }
   }
-  console.log(dp)
 
   return Math.max(...dp[land.length - 1]);
 }
