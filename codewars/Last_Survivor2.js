@@ -14,11 +14,22 @@
         str = "bzb"
         str = "cz"
     return "cz"
+
+  재귀가 필요..
 */
 
 function lastSurvivors(str) {
   const alp = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',];
-  const arr = str.split('');
+  const answer = [];
+  while(true){
+    const arr = str.split('');
+    arr.forEach(n =>{
+      const idx = alp.indexOf(n);
+      const fil = arr.filter(m => m === alp[idx]);
+
+    })
+  }
 }
+
 
 console.log(lastSurvivors("zzzab"));
