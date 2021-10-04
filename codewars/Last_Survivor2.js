@@ -54,6 +54,7 @@ function lastSurvivors(str) {
 
 console.log(lastSurvivors("xsdlafqpcmjytoikojsecamgdkehrqqgfknlhoudqygkbxftivfbpxhxtqgpkvsrfflpgrlhkbfnyftwkdebwfidmpauoteahyh"));
 
+
 function lastSurvivors_best(str) {
   const alpha = 'abcdefghijklmnopqrstuvwxyz';
   let next = str;
@@ -64,7 +65,33 @@ function lastSurvivors_best(str) {
   
   return str;
 }
+
 console.log(lastSurvivors_best("zzzab"));
+
+
+function lastSurvivors_best2(str) {
+  const chars = [...str];
+
+  function getNextChar(char) {
+    if (char === 'z') return 'a';
+    const charCode = char.charCodeAt(0);
+    return String.fromCharCode(charCode + 1);
+  }
+
+  for (let i = 0; i < chars.length; i++) {
+    for (let j = i + 1; j < chars.length; j++) {
+      if (chars[i] === chars[j]) {
+        chars[i] = getNextChar(chars[i]);
+        chars.splice(j, 1);
+        i = -1;
+        break;
+      }
+    }
+    console.log(chars);
+  }
+  return chars.join('');
+}
+console.log(lastSurvivors_best2("zzzab"));
 
 // function recursive(str) {
 //   const alp = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',];
