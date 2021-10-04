@@ -19,17 +19,70 @@
 */
 
 function lastSurvivors(str) {
+  // console.log('str = ', str);
   const alp = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',];
-  const answer = [];
-  while(true){
-    const arr = str.split('');
-    arr.forEach(n =>{
-      const idx = alp.indexOf(n);
-      const fil = arr.filter(m => m === alp[idx]);
+  let overlap = [];
+  let remain = [];
+  let idx = -1;
+  const arr = str.split('')
+  for(let i = 0; i < arr.length; i++){
+    overlap = arr.filter(n => n === arr[i]);
+    remain = arr.filter(n => n !== arr[i]);
 
-    })
+    if(overlap.length > 1){
+      idx = alp.indexOf(overlap[0]);
+      break
+    }
   }
+  
+  if(idx >= 0){
+    const deleteOverlap = [];
+    const num = Math.floor(overlap.length / 2);
+    const re = overlap.length % 2;
+    for(let i = 0; i < num; i++){
+      deleteOverlap.push(alp[idx !== 25 ? idx + 1 : 0]);
+    }
+    for(let i = 0; i < re; i++){
+      deleteOverlap.push(alp[idx]);
+    }
+    const newStr = [...deleteOverlap, ...remain].join("");
+    // console.log(newStr);
+    return lastSurvivors(newStr);
+  }
+  return str;
 }
 
+console.log(lastSurvivors("xsdlafqpcmjytoikojsecamgdkehrqqgfknlhoudqygkbxftivfbpxhxtqgpkvsrfflpgrlhkbfnyftwkdebwfidmpauoteahyh"));
 
-console.log(lastSurvivors("zzzab"));
+
+// function recursive(str) {
+//   const alp = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',];
+//   let overlap = [];
+//   let remain = [];
+//   let idx = -1;
+//   const arr = str.split('')
+//   for(let i = 0; i < arr.length; i++){
+//     overlap = arr.filter(n => n === arr[i]);
+//     remain = arr.filter(n => n !== arr[i]);
+
+//     if(overlap.length > 1){
+//       idx = alp.indexOf(overlap[0]);
+//       break
+//     }
+//   }
+  
+//   if(idx >= 0){
+//     const deleteOverlap = [];
+//     const num = Math.floor(overlap.length / 2);
+//     const re = overlap.length % 2;
+//     for(let i = 0; i < num; i++){
+//       deleteOverlap.push(alp[idx !== 25 ? idx + 1 : 0]);
+//     }
+//     for(let i = 0; i < re; i++){
+//       deleteOverlap.push(alp[idx]);
+//     }
+//     const answer = [...deleteOverlap, ...remain].join("");
+//     console.log(answer);
+//     recursive(answer);
+//   }
+// }
