@@ -59,11 +59,7 @@ function lastSurvivors_best(str) {
   let next = str;
   do {
     str = next;
-    console.log('next = ', next)
-    console.log('str = ', str)
     next = str.replace(/([a-z])(.*?)\1/g, (_, a, b) => alpha[(alpha.indexOf(a) + 1) % 26] + b);
-    console.log('next = ', next)
-    console.log('str = ', str)
   } while (str !== next)
   
   return str;
