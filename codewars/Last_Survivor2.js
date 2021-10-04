@@ -54,6 +54,21 @@ function lastSurvivors(str) {
 
 console.log(lastSurvivors("xsdlafqpcmjytoikojsecamgdkehrqqgfknlhoudqygkbxftivfbpxhxtqgpkvsrfflpgrlhkbfnyftwkdebwfidmpauoteahyh"));
 
+function lastSurvivors_best(str) {
+  const alpha = 'abcdefghijklmnopqrstuvwxyz';
+  let next = str;
+  do {
+    str = next;
+    console.log('next = ', next)
+    console.log('str = ', str)
+    next = str.replace(/([a-z])(.*?)\1/g, (_, a, b) => alpha[(alpha.indexOf(a) + 1) % 26] + b);
+    console.log('next = ', next)
+    console.log('str = ', str)
+  } while (str !== next)
+  
+  return str;
+}
+console.log(lastSurvivors_best("zzzab"));
 
 // function recursive(str) {
 //   const alp = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',];
