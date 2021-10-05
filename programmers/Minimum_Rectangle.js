@@ -66,3 +66,42 @@ console.log(
     [7, 11],
   ])
 ); //133
+
+function solution_best(sizes) {
+  let w = 0;
+  let h = 0;
+  sizes.forEach(s => {
+      const [a, b] = s.sort((a,b) => a-b);
+      if (a > h) h = a;
+      if (b > w) w = b;
+  });
+
+  return w * h;
+}
+
+console.log(
+  solution_best([
+    [60, 50],
+    [30, 70],
+    [60, 30],
+    [80, 40],
+  ])
+); //4000
+console.log(
+  solution_best([
+    [10, 7],
+    [12, 3],
+    [8, 15],
+    [14, 7],
+    [5, 15],
+  ])
+); //120
+console.log(
+  solution_best([
+    [14, 4],
+    [19, 6],
+    [6, 16],
+    [18, 7],
+    [7, 11],
+  ])
+); //133
