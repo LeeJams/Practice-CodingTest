@@ -11,7 +11,6 @@
 */
 
 function f(n){
-  console.log(n !== parseInt(n))
   if(typeof n !== 'number' || n !== parseInt(n)){
     return false;
   }
@@ -29,3 +28,15 @@ console.log(f('n')) // false
 console.log(f()) // false
 console.log(f(3.14)) // false
 console.log(f(-10)) // false
+
+function f_best(n){
+  return (parseInt(n) === n && n > 0) ? n*(n+1)/2 : false;
+};
+
+console.log(f_best(100)) // 5050
+console.log(f_best(300)) // 45150
+console.log(f_best(50000)) // 1250025000
+console.log(f_best('n')) // false
+console.log(f_best()) // false
+console.log(f_best(3.14)) // false
+console.log(f_best(-10)) // false
