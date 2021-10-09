@@ -27,3 +27,12 @@ console.log(digital_root(16));
 console.log(digital_root(942));
 console.log(digital_root(132189));
 console.log(digital_root(493193));
+
+function digital_root_bset(n) {
+  return n % 9;
+}
+
+console.log(digital_root_bset(16));
+console.log(digital_root_bset(942));
+console.log(digital_root_bset(132189));
+console.log(digital_root_bset(493193));
