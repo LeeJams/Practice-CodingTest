@@ -29,7 +29,7 @@ console.log(digital_root(132189));
 console.log(digital_root(493193));
 
 function digital_root_bset(n) {
-  return n % 9;
+  return (n - 1) % 9 + 1;
 }
 
 console.log(digital_root_bset(16));
