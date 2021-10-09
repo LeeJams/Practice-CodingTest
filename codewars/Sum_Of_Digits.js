@@ -15,5 +15,15 @@
 */
 
 function digital_root(n) {
-  // ...
+  if(n > 9){
+    const newN = n.toString().split("").reduce((acc, cur) => {return acc + parseInt(cur)}, 0);
+    return digital_root(newN)
+  }else{
+    return n
+  }
 }
+
+console.log(digital_root(16));
+console.log(digital_root(942));
+console.log(digital_root(132189));
+console.log(digital_root(493193));
