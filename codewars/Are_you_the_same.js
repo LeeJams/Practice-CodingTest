@@ -40,3 +40,9 @@ function comp(array1, array2){
 }
 
 console.log(comp([121, 144, 19, 161, 19, 144, 19, 11], [121, 14641, 20736, 361, 25921, 361, 20736, 361]));
+
+function comp_best(a, b) {
+  return !!a && !!b && a.map(x => x*x).sort().join() == b.sort().join();
+}
+
+console.log(comp_best([121, 144, 19, 161, 19, 144, 19, 11], [121, 14641, 20736, 361, 25921, 361, 20736, 361]));
