@@ -28,3 +28,11 @@ console.log(solution(4));
 console.log(solution(9));
 console.log(solution(12));
 
+function solution_simple(n) {
+    var answer = 1;
+    while(n%answer!=1)answer++;
+    return answer;
+}
+console.log(solution_simple(4));
+console.log(solution_simple(9));
+console.log(solution_simple(12));
