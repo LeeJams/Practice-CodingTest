@@ -10,9 +10,14 @@
 */
 
 function stray(numbers) {
-  const first = numbers.filter(n => n === numbers[0]);
-  const scond = numbers.filter(n => n !== numbers[0]);
+  const first = numbers.filter((n) => n === numbers[0]);
+  const scond = numbers.filter((n) => n !== numbers[0]);
   return first.length === 1 ? first[0] : scond[0];
 }
-
 console.log(stray([1, 1, 2])); // 2
+console.log(stray([17, 17, 3, 17, 17, 17, 17])); // 3
+
+// 배열이 홀수라는 전제 조건이 붙어 있어 가능한 방식
+const stray_best = (nums) => nums.reduce((a, b) => a ^ b);
+console.log(stray_best([17, 17, 3, 17, 17, 17, 17])); // 3
+// console.log(1 ^ 1);
