@@ -35,3 +35,12 @@ console.log(arrayDiff([], [4,5])); // []
 console.log(arrayDiff([3,4], [3])); // [4]
 console.log(arrayDiff([1,8,2], [])); // [1, 8, 2]
 console.log(arrayDiff([1,2,3], [1,2])); // [3]
+
+function array_diff_best(a, b) {
+  return a.filter(e => !b.includes(e));
+}
+
+console.log(array_diff_best([], [4,5])); // []
+console.log(array_diff_best([3,4], [3])); // [4]
+console.log(array_diff_best([1,8,2], [])); // [1, 8, 2]
+console.log(array_diff_best([1,2,3], [1,2])); // [3]
