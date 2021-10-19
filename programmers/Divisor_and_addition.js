@@ -25,6 +25,26 @@ function solution(left, right) {
   }
   return answer;
 }
-
+//성능 테스트
+console.time('calculatingTime')
 console.log(solution(13, 17)); // 43
 console.log(solution(24, 27)); // 52
+console.timeEnd('calculatingTime');
+
+// 제곱근이 정수면, 약수의 갯수가 홀수인 것을 이용한 풀이.
+function solution_best(left, right) {
+    var answer = 0;
+    for (let i = left; i <= right; i++) {
+        if (Number.isInteger(Math.sqrt(i))) {
+            answer -= i;
+        } else {
+            answer += i;
+        }
+    }
+    return answer;
+}
+//성능 테스트
+console.time('calculatingTime')
+console.log(solution_best(13, 17)); // 43
+console.log(solution_best(24, 27)); // 52
+console.timeEnd('calculatingTime');
