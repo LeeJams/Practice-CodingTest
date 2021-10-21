@@ -17,12 +17,12 @@
   3	  [3]	      [1]	          2
 */
 function solution(n, lost, reserve) {
-  let fliterLost = lost.filter(x => !reserve.includes(x));
-  let filterReserve = reserve.filter(x => !lost.includes(x));
+  let fliterLost = lost.filter(x => !reserve.includes(x)).sort();
+  let filterReserve = reserve.filter(x => !lost.includes(x)).sort();
   let answer = n - fliterLost.length;
 
   for(let i = 0; i < fliterLost.length; i++){
-    if(filterReserve.includes(fliterLost[i] - 1) && fliterLost[i] - 1 > 0) {
+    if(filterReserve.includes(fliterLost[i] - 1)) {
       answer++;
       const idx = filterReserve.findIndex(n => n === fliterLost[i] - 1);
       filterReserve[idx] = 0;
@@ -38,10 +38,22 @@ function solution(n, lost, reserve) {
   return answer;
 }
 
-console.log(solution(5, [2, 4], [1, 3, 5])); // 5
-console.log(solution(5, [2, 4], [3])); // 4
-console.log(solution(3, [3], [1])); // 2
-console.log(solution(3, [3], [3])); // 3
-console.log(solution(7, [2,4,5,6,7], [1,3,4,5,6,7])); // 7
-console.log(solution(7, [1,4,5,6,7], [3,4,5,6,7])); // 7
-console.log(solution(5, [4, 2], [3, 5])); // 5
+// console.log(solution(5, [2, 4], [1, 3, 5])); // 5
+// console.log(solution(5, [2, 4], [3])); // 4
+// console.log(solution(3, [3], [1])); // 2
+// console.log(solution(3, [3], [3])); // 3
+// console.log(solution(7, [2,4,5,6,7], [1,3,4,5,6,7])); // 7
+// console.log(solution(7, [1,4,5,6,7], [3,4,5,6,7])); // 7
+// console.log(solution(5, [4, 2], [3, 5])); // 5
+
+function solution_best(n, lost, reserve) {      
+    return n - lost.filter(a => {
+        console.log("a = ", a);
+        const b = reserve.find(r => Math.abs(r-a) <= 1)
+        console.log("b = ", b);
+        if(!b) return true
+        reserve = reserve.filter(r => r !== b)
+        console.log("reserve = ", reserve);
+    }).length
+}
+console.log(solution_best(7, [2,4,5,6,7], [1,3,4,5,6,7])); // 7
