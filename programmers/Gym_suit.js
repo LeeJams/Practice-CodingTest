@@ -57,3 +57,4 @@ function solution_best(n, lost, reserve) {
     }).length
 }
 console.log(solution_best(7, [2,4,5,6,7], [1,3,4,5,6,7])); // 7
+console.log(solution_best(7, [2, 3, 4], [1, 2, 3, 6])) // 6
