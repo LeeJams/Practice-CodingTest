@@ -22,7 +22,7 @@ function solution(n, lost, reserve) {
   let answer = n - fliterLost.length;
 
   for(let i = 0; i < fliterLost.length; i++){
-    if(filterReserve.includes(fliterLost[i] - 1)) {
+    if(filterReserve.includes(fliterLost[i] - 1) && fliterLost[i] - 1 > 0) {
       answer++;
       const idx = filterReserve.findIndex(n => n === fliterLost[i] - 1);
       filterReserve[idx] = 0;
@@ -38,8 +38,10 @@ function solution(n, lost, reserve) {
   return answer;
 }
 
-// console.log(solution(5, [2, 4], [1, 3, 5])); // 5
+console.log(solution(5, [2, 4], [1, 3, 5])); // 5
 console.log(solution(5, [2, 4], [3])); // 4
-// console.log(solution(3, [3], [1])); // 2
-// console.log(solution(3, [3], [3])); // 3
-// console.log(solution(7, [2,4,5,6,7], [1,3,4,5,6,7])); // 7
+console.log(solution(3, [3], [1])); // 2
+console.log(solution(3, [3], [3])); // 3
+console.log(solution(7, [2,4,5,6,7], [1,3,4,5,6,7])); // 7
+console.log(solution(7, [1,4,5,6,7], [3,4,5,6,7])); // 7
+console.log(solution(5, [4, 2], [3, 5])); // 5
