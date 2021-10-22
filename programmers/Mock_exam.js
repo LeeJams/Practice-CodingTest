@@ -18,35 +18,58 @@
 */
 
 function solution(answers) {
-    const answer = [];
-    const one = [1, 2, 3, 4, 5];
-    const two = [2, 1, 2, 3, 2, 4, 2, 5];
-    const three = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
-    
-    let oneSum = 0;
-    let twoSum = 0;
-    let threeSum = 0;
-    
-    answers.forEach((n, idx) => {
-        oneSum += n === one[idx%5] ? 1 : 0;
-        twoSum += n === two[idx%8] ? 1 : 0;
-        threeSum += n === three[idx%10] ? 1 : 0;
-    });
-    const max = Math.max(oneSum, twoSum, threeSum);
-    if(oneSum === max){
-        answer.push(1)
-    }
-    if(twoSum === max){
-        answer.push(2)
-    }
-    if(threeSum === max){
-        answer.push(3)
-    }
-    return answer;
+  const answer = [];
+  const one = [1, 2, 3, 4, 5];
+  const two = [2, 1, 2, 3, 2, 4, 2, 5];
+  const three = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+
+  let oneSum = 0;
+  let twoSum = 0;
+  let threeSum = 0;
+
+  answers.forEach((n, idx) => {
+    oneSum += n === one[idx % 5] ? 1 : 0;
+    twoSum += n === two[idx % 8] ? 1 : 0;
+    threeSum += n === three[idx % 10] ? 1 : 0;
+  });
+  const max = Math.max(oneSum, twoSum, threeSum);
+  if (oneSum === max) {
+    answer.push(1);
+  }
+  if (twoSum === max) {
+    answer.push(2);
+  }
+  if (threeSum === max) {
+    answer.push(3);
+  }
+  return answer;
 }
 
-console.log(solution([1,2,3,4,5])); // [1]
-console.log(solution([1,3,2,4,2])); // [1, 2, 3] 
-console.log(solution([1])); // [1] 
+console.log(solution([1, 2, 3, 4, 5])); // [1]
+console.log(solution([1, 3, 2, 4, 2])); // [1, 2, 3]
+console.log(solution([1])); // [1]
 
+function solution_best(answers) {
+  var answer = [];
+  const man1 = [1, 2, 3, 4, 5];
+  const man2 = [2, 1, 2, 3, 2, 4, 2, 5];
+  const man3 = [3, 3, 1, 1, 2, 2, 4, 4, 5, 5];
+  let count = [0, 0, 0];
 
+  answers.forEach((n, idx) => {
+    count[0] += n === man1[idx % 5] ? 1 : 0;
+    count[1] += n === man2[idx % 8] ? 1 : 0;
+    count[2] += n === man3[idx % 10] ? 1 : 0;
+  });
+
+  const max = Math.max(count[0], count[1], count[2]);
+  for (let i = 0; i < count.length; i++) {
+    if (max == count[i]) answer.push(i + 1);
+  }
+
+  return answer;
+}
+
+console.log(solution_best([1, 2, 3, 4, 5])); // [1]
+console.log(solution_best([1, 3, 2, 4, 2])); // [1, 2, 3]
+console.log(solution_best([1])); // [1]
