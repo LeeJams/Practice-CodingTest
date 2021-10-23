@@ -49,7 +49,7 @@ function solution_my(n) {
   return arr.filter((n) => n !== 0).length;
 }
 
-//Set을 생성하면서 2의 배수는 삭제 제곱근을 구해 나머지도 삭제... 지린다...
+//Set을 생성하면서 2의 배수는 삭제 제곱근을 구해 나머지도 삭제... 지린다... But Set을 사용하여 속도 측에서 분리..
 function solution(n) {
   const s = new Set();
   for (let i = 1; i <= n; i += 2) {
@@ -57,7 +57,7 @@ function solution(n) {
   }
   s.delete(1);
   s.add(2);
-  for (let j = 3; j < Math.sqrt(n); j++) {
+  for (let j = 3; j < Math.sqrt(n); j += 2) {
     if (s.has(j)) {
       for (let k = j * 2; k <= n; k += j) {
         s.delete(k);
