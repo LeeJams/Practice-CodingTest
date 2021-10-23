@@ -13,7 +13,9 @@
   10	  4
   5	    3
 */
-function solution(n) {
+
+// 효율성 탈락
+/* function solution(n) {
   let answer = 0;
   
   for(let i = 2; i <= n; i++){
@@ -29,8 +31,24 @@ function solution(n) {
       }
   }
   return answer;
+} */
+
+function solution(n) {
+  const arr = [0, 0];
+  for (let i = 2; i <= n; i++) {
+    arr.push(i);
+  }
+
+  for (let i = 2; i <= n; i++) {
+    if (arr[i] == 0) continue;
+    for (let j = i + i; j <= n; j += i) {
+      arr[j] = 0;
+    }
+  }
+
+  return arr.filter(n => n !== 0).length;
 }
 
-console.time('solution');
+console.time("solution");
 console.log(solution(100));
-console.timeEnd('solution');
+console.timeEnd("solution");
