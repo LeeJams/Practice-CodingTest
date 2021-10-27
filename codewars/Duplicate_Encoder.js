@@ -11,6 +11,23 @@
   "(( @"     =>  "))((" 
 */
 
+//map을 이용한 방식
+function duplicateEncode_map(word){
+  return word
+    .toLowerCase()
+    .split('')
+    .map( function (a, i, w) {
+      return w.indexOf(a) == w.lastIndexOf(a) ? '(' : ')'
+    })
+    .join('');
+}
+
+//정규식 이용 - 성능 압도적....
+function duplicateEncode_exr(word) {
+  word = word.toLowerCase();
+  return word.replace(/./g, m => word.indexOf(m) == word.lastIndexOf(m) ? '(' : ')');
+}
+
 function duplicateEncode(word) {
   return word
     .toLowerCase()
@@ -20,6 +37,17 @@ function duplicateEncode(word) {
     }, "");
 }
 
+console.time('check');
 console.log(duplicateEncode("din"));
+console.timeEnd('check');
+
+console.time('check-map');
+console.log(duplicateEncode_map("din"));
+console.timeEnd('check-map');
+
+console.time('check-reg');
+console.log(duplicateEncode_exr("din"));
+console.timeEnd('check-reg');
+
 console.log(duplicateEncode("recede"));
 console.log(duplicateEncode("Success"));
