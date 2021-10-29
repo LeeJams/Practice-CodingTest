@@ -30,11 +30,18 @@
   In some tests the number of elements of arr can be big.
 */
 
-bonus = function(arr, s) {
-  // Your code
-}
+const bonus = function (arr, s) {
+  let res = arr.reduce((acc, cur) => {
+    return (acc += arr[0] / cur);
+  }, 0);
 
-console.log([22, 3, 15], 18228); // [1860, 13640, 2728]
-console.log([8, 14, 11], 23541); // [10241, 5852, 7448]
-console.log([25, 22, 15, 22, 22], 5213); // [858, 975, 1430, 975, 975]
-console.log([10, 11, 30, 12, 17, 23, 30, 11, 17, 10], 1788210); // [258060, 234600, 86020, 215050, 151800, 112200, 86020, 234600, 151800, 258060]
+  return arr.map((num) => {
+    return Math.round(((s / res) * arr[0]) / num);
+  });
+};
+
+console.log(bonus([22, 3, 15], 18228)); // [1860, 13640, 2728]
+// console.log(bonus([8, 14, 11], 23541)); // [10241, 5852, 7448]
+// console.log(bonus([25, 22, 15, 22, 22], 5213)); // [858, 975, 1430, 975, 975]
+// console.log(bonus([10, 11, 30, 12, 17, 23, 30, 11, 17, 10], 1788210));
+// [258060, 234600, 86020, 215050, 151800, 112200, 86020, 234600, 151800, 258060]
