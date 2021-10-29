@@ -40,7 +40,22 @@ function solution(numbers) {
   return answer[0] !== "0" ? answer : "0"
 }
 
+function solution(numbers) {
+    var answer = numbers.map(v=>v+'')
+                        .sort((a,b) => (b+a)*1 - (a+b)*1)
+                        .join('');
+
+    return answer[0]==='0'?'0':answer;
+}
+
+function solution(numbers) {
+    let answer = numbers.sort((a, b) => `${b}${a}` - `${a}${b}`).join('');
+    return answer[0] === '0' ? '0' : answer;
+}
+
+
 // console.log(solution([6, 10, 2])); // "6210"
 // console.log(solution([3, 30, 34, 5, 9])); // "9534330"
 console.log(solution([979, 97, 978, 81, 818, 817])); // "9799797881881817"
-console.log(solution([0, 0, 0, 0, 0])); // "0"          "9799797881881817"
+console.log(solution([0, 0, 0, 0, 0])); // "0"
+console.log(solution([1, 1, 1, 1, 1])); // "0"
