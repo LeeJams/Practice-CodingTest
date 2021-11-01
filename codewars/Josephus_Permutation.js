@@ -28,6 +28,25 @@
   [] => 4 is counted out and goes into the result [3,6,2,7,5,1,4]
 */
 
+/* 
+function josephus(items, k) {
+  if (k === 1 || items.length === 0) return items;
+  let count = k - 1;
+  const answer = [];
+  while (items.length) {
+    if(items.length - 1 < count) count = count % items.length;
+    answer.push(items[count]);
+    count += k;
+
+    if (items.length - 1 < count) {
+      count = count % items.length;
+      items = items.filter(n => !answer.includes(n));
+    }
+  }
+  return answer
+}
+*/
+
 function josephus(items, k) {
   if (k === 1 || items.length === 0) return items;
   let count = 0;
@@ -45,12 +64,22 @@ function josephus(items, k) {
   return answer
 }
 
-console.log(josephus([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1)); // [1,2,3,4,5,6,7,8,9,10]
-console.log(josephus([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2)); // [2, 4, 6, 8, 10, 3, 7, 1, 9, 5]
-console.log(josephus(["C", "o", "d", "e", "W", "a", "r", "s"], 4)); // ['e', 's', 'W', 'o', 'C', 'd', 'r', 'a']
-console.log(josephus([], 3)); // []
-console.log(josephus([1,2,3,4,5,6,7],3)); // [3, 6, 2, 7, 5, 1, 4]
-[8, 16, 24, 5, 14, 23, 6, 17, 27, 11, 22, 9, 21, 10, 26, 15, 4, 1, 20, 19, 25, 3, 13, 12, 2, 18, 7]
+// 미쳐버렸다..
+function josephus(items, k){
+  var result = [], index = 0;
+  while (items.length > 0){
+    index = (index + k - 1) % items.length;
+    result = result.concat(items.splice(index, 1));
+  }
+  return result;
+}
+
+// console.log(josephus([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1)); // [1,2,3,4,5,6,7,8,9,10]
+// console.log(josephus([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2)); // [2, 4, 6, 8, 10, 3, 7, 1, 9, 5]
+// console.log(josephus(["C", "o", "d", "e", "W", "a", "r", "s"], 4)); // ['e', 's', 'W', 'o', 'C', 'd', 'r', 'a']
+// console.log(josephus([], 3)); // []
+// console.log(josephus([1,2,3,4,5,6,7],3)); // [3, 6, 2, 7, 5, 1, 4]
+// [8, 16, 24, 5, 14, 23, 6, 17, 27, 11, 22, 9, 21, 10, 26, 15, 4, 1, 20, 19, 25, 3, 13, 12, 2, 18, 7]
 console.log(
   josephus(
     [
