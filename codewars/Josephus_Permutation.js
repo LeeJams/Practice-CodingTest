@@ -30,25 +30,33 @@
 
 function josephus(items, k) {
   if (k === 1 || items.length === 0) return items;
-  let count = k - 1;
+  let count = 0;
+  let idx = 0;
   const answer = [];
   while (items.length) {
-    if(items.length - 1 < count) count = count % (items.length - 1);
-    answer.push(items[count]);
-    count += k;
-
-    if (items.length - 1 < count) {
-      count = count % items.length;
-      items = items.filter(n => !answer.includes(n));
+    idx %= items.length;
+    if(++count === k) {
+      answer.push(items.splice(idx, 1)[0]);
+      count = 0;
+      idx--;
     }
+    idx++;
   }
   return answer
 }
 
-// console.log(josephus([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1)); // [1,2,3,4,5,6,7,8,9,10]
-// console.log(josephus([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2)); // [2, 4, 6, 8, 10, 3, 7, 1, 9, 5]
-// console.log(josephus(["C", "o", "d", "e", "W", "a", "r", "s"], 4)); // ['e', 's', 'W', 'o', 'C', 'd', 'r', 'a']
-// console.log(josephus([], 3)); // []
-// console.log(josephus([1,2,3,4,5,6,7],3)); // [3, 6, 2, 7, 5, 1, 4]
-// [8, 16, 24, 5, 14, 23, 6, 17, 27, 11, 22, 9, 21, 10, 26, 15, 4, 1, 20, 19, 25, 3, 13, 12, 2, 18, 7]
-console.log(josephus([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27], 8)); 
+console.log(josephus([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 1)); // [1,2,3,4,5,6,7,8,9,10]
+console.log(josephus([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 2)); // [2, 4, 6, 8, 10, 3, 7, 1, 9, 5]
+console.log(josephus(["C", "o", "d", "e", "W", "a", "r", "s"], 4)); // ['e', 's', 'W', 'o', 'C', 'd', 'r', 'a']
+console.log(josephus([], 3)); // []
+console.log(josephus([1,2,3,4,5,6,7],3)); // [3, 6, 2, 7, 5, 1, 4]
+[8, 16, 24, 5, 14, 23, 6, 17, 27, 11, 22, 9, 21, 10, 26, 15, 4, 1, 20, 19, 25, 3, 13, 12, 2, 18, 7]
+console.log(
+  josephus(
+    [
+      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+      22, 23, 24, 25, 26, 27,
+    ],
+    8
+  )
+);
