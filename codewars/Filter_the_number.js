@@ -18,11 +18,13 @@ var FilterString = function (value) {
   return parseInt(num);
 };
 
-console.log(FilterString("123"));
-console.log(FilterString("a1b2c3"));
-console.log(FilterString("aa1bb2cc3dd"));
 
 
 var FilterString = function(value) {
+
   return parseInt(value.replace(/[^\d]/g, ""))
 }
+
+console.log(FilterString("123"));
+console.log(FilterString("a1b2c3"));
+console.log(FilterString("aa1bb2cc3dd"));
