@@ -9,7 +9,6 @@ If the number of cuts is negative, return -1 instead (or Nothing in Haskell).
 */
 
 function maxPizza(cut) {
-  if(!cut) return 1;
   if(cut < 0) return -1;
   let answer = 0;
   for(let i = 1; i < cut + 1; i++){
@@ -17,6 +16,11 @@ function maxPizza(cut) {
   }
   return 1 + answer;
 }
+
+function maxPizza(cut) {
+  return cut < 0 ? -1 : 1 + cut * (cut + 1) / 2;
+}
+
 
 console.log(maxPizza(0)) // 1
 console.log(maxPizza(3)) // 7
