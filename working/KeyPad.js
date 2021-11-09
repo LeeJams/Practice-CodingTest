@@ -48,28 +48,7 @@ function solution(numbers, hand) {
       nowRight = n;
       answer += "R";
     } else {
-      const mIdx = middle.lastIndexOf(n);
-      const rIdx = right.indexOf(nowRight);
-      const lIdx = left.indexOf(nowLeft);
-      if (rIdx !== -1 && lIdx !== -1) {
-        if (Math.abs(mIdx - rIdx) === Math.abs(mIdx - lIdx)) {
-          if(hand === "right"){
-            answer += 'R'
-            nowRight = n;
-          }else{
-            answer += 'L'
-            nowLeft = n;
-          }
-        } else {
-          if(Math.abs(mIdx - rIdx) < Math.abs(mIdx - lIdx)){
-            answer += 'R'
-            nowRight = n;
-          }else{
-            answer += 'L'
-            nowLeft = n;
-          }
-        }
-      } 
+      
     }
   });
   return answer;
