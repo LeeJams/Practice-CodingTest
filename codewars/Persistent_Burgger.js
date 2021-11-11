@@ -24,7 +24,13 @@ function persistence(num) {
   return count;
 }
 
-console.log(persistence(39)); // 3
-console.log(persistence(4)); // 0
-console.log(persistence(25)); // 2
-console.log(persistence(999)); // 4
+const persistence_recursive = num => {
+  return `${num}`.length > 1 
+    ? 1 + persistence_recursive(`${num}`.split('').reduce((a, b) => a * +b)) 
+    : 0;
+}
+
+console.log(persistence_recursive(39)); // 3
+console.log(persistence_recursive(4)); // 0
+console.log(persistence_recursive(25)); // 2
+console.log(persistence_recursive(999)); // 4
