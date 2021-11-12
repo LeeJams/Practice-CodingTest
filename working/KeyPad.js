@@ -35,16 +35,12 @@ function solution(numbers, hand) {
   const right = [3, 6, 9, "#"];
   const middle = [2, 5, 8, 0];
   const left = [1, 4, 7, "*"];
-  const pad = [
-    [1, 2, 3],
-    [4, 5, 6],
-    [7, 8, 9],
-    ["*", 0, "#"],
-  ];
 
   let answer = "";
   let nowLeft = "*";
   let nowRight = "#";
+
+  let leftPo, rightPo;
 
   numbers.forEach((n) => {
     if (left.includes(n)) {
@@ -54,84 +50,36 @@ function solution(numbers, hand) {
       nowRight = n;
       answer += "R";
     } else {
-      if (nowLeft === n) {
-        answer += "L";
-      } else if (nowRight === n) {
-        answer += "R";
-      } else if (middle.includes(nowLeft) && middle.includes(nowRight)) {
-        const leftPo = Math.abs(middle.indexOf(n) - middle.indexOf(nowLeft));
-        const rightPo = Math.abs(middle.indexOf(n) - middle.indexOf(nowRight));
-        if (leftPo === rightPo) {
-          if (hand === "right") {
-            nowRight = n;
-            answer += "R";
-          } else {
-            nowLeft = n;
-            answer += "L";
-          }
-        } else if (leftPo > rightPo) {
-          nowRight = n;
-          answer += "R";
-        } else {
-          nowLeft = n;
-          answer += "L";
-        }
+      if (middle.includes(nowLeft) && middle.includes(nowRight)) {
+        leftPo = Math.abs(middle.indexOf(n) - middle.indexOf(nowLeft));
+        rightPo = Math.abs(middle.indexOf(n) - middle.indexOf(nowRight));
       } else if (middle.includes(nowLeft)) {
-        const leftPo = Math.abs(middle.indexOf(n) - middle.indexOf(nowLeft)) - 1;
-        const rightPo =
+        leftPo = Math.abs(middle.indexOf(n) - middle.indexOf(nowLeft)) - 1;
+        rightPo =
           Math.abs(middle.indexOf(n) - right.indexOf(nowRight));
-        if (leftPo === rightPo) {
-          if (hand === "right") {
-            nowRight = n;
-            answer += "R";
-          } else {
-            nowLeft = n;
-            answer += "L";
-          }
-        } else if (leftPo > rightPo) {
-          nowRight = n;
-          answer += "R";
-        } else {
-          nowLeft = n;
-          answer += "L";
-        }
       } else if (middle.includes(nowRight)) {
-        const leftPo = Math.abs(middle.indexOf(n) - left.indexOf(nowLeft));
-        const rightPo =
+        leftPo = Math.abs(middle.indexOf(n) - left.indexOf(nowLeft));
+        rightPo =
           Math.abs(middle.indexOf(n) - middle.indexOf(nowRight)) - 1;
-        if (leftPo === rightPo) {
-          if (hand === "right") {
-            nowRight = n;
-            answer += "R";
-          } else {
-            nowLeft = n;
-            answer += "L";
-          }
-        } else if (leftPo > rightPo) {
-          nowRight = n;
-          answer += "R";
-        } else {
-          nowLeft = n;
-          answer += "L";
-        }
       } else {
-        const leftPo = Math.abs(middle.indexOf(n) - left.indexOf(nowLeft));
-        const rightPo = Math.abs(middle.indexOf(n) - right.indexOf(nowRight));
-        if (leftPo === rightPo) {
-          if (hand === "right") {
-            nowRight = n;
-            answer += "R";
-          } else {
-            nowLeft = n;
-            answer += "L";
-          }
-        } else if (leftPo > rightPo) {
+        leftPo = Math.abs(middle.indexOf(n) - left.indexOf(nowLeft));
+        rightPo = Math.abs(middle.indexOf(n) - right.indexOf(nowRight));
+      }
+
+      if (leftPo === rightPo) {
+        if (hand === "right") {
           nowRight = n;
           answer += "R";
         } else {
           nowLeft = n;
           answer += "L";
         }
+      } else if (leftPo > rightPo) {
+        nowRight = n;
+        answer += "R";
+      } else {
+        nowLeft = n;
+        answer += "L";
       }
     }
   });
@@ -139,6 +87,116 @@ function solution(numbers, hand) {
 }
 
 console.log(solution([1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5], "right")); //	"LRLLLRLLRRL"
-                                                                   //  LRLLRLLLRRL
-// console.log(solution([7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2], "left")); // "LRLLRRLLLRR"
-// console.log(solution([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], "right")); // "LLRLLRLLRL"
+console.log(solution([7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2], "left")); // "LRLLRRLLLRR"
+console.log(solution([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], "right")); // "LLRLLRLLRL"
+
+const solution_best = (numbers, hand) => {
+  const answer = [];
+
+  let leftHandPosition = '*';
+  let rightHandPosition = '#';
+
+  numbers.forEach(number => {   
+    if (number === 1 || number === 4 || number === 7) {
+      answer.push('L');
+      leftHandPosition = number;
+      return;
+    }
+
+    if (number === 3 || number === 6 || number === 9) {
+      answer.push('R');
+      rightHandPosition = number;
+      return;
+    }
+
+    const leftHandDistance = getDistance(leftHandPosition, number);
+    const rightHandDistance = getDistance(rightHandPosition, number);
+
+    if (leftHandDistance === rightHandDistance) {
+      if (hand === "right") {
+        answer.push('R');
+        rightHandPosition = number;
+        return;
+      }
+
+      if (hand === 'left') {
+        answer.push('L');
+        leftHandPosition = number;
+        return;
+      }
+    }
+
+    if (leftHandDistance > rightHandDistance) {
+      answer.push('R');
+      rightHandPosition = number;
+    } 
+
+    if (leftHandDistance < rightHandDistance) {
+      answer.push('L');
+      leftHandPosition = number;
+    }
+  });
+
+  return answer.join("");
+};
+
+const getDistance = (locatedNumber, target) => {
+  const keyPad = {
+    1: [0, 0], 2: [0, 1], 3: [0, 2],
+    4: [1, 0], 5: [1, 1], 6: [1, 2],
+    7: [2, 0], 8: [2, 1], 9: [2, 2],
+    '*': [3, 0], 0: [3, 1], '#': [3, 2],
+  }
+
+  const nowPosition = keyPad[locatedNumber];
+  const targetPosition = keyPad[target];
+
+  return Math.abs(targetPosition[0] - nowPosition[0]) + Math.abs(targetPosition[1] - nowPosition[1]);
+};
+
+console.log(solution_best([1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5], "right")); //	"LRLLLRLLRRL"
+console.log(solution_best([7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2], "left")); // "LRLLRRLLLRR"
+console.log(solution_best([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], "right")); // "LLRLLRLLRL"
+
+
+//그리드..?
+function solution_grid(numbers, hand) {
+    let answer = '';
+    // imagine a grid, and assign each number coordinates
+    // by taking 5 being 0,0.
+    // If needed, this can also be done programmatically.
+    const grid = [[0,-2], [-1,1], [0,1],
+                  [1,1], [-1,0], [0,0],
+                  [1,0], [-1,-1], [0,-1],
+                  [1,-1], [-1,-2], [1,-2]];
+    let L = 10; // 10th element of the grid are * and # of the keypad
+    let R = 11; // 11th
+    let L_steps, R_steps; 
+    hand = hand[0].toUpperCase();
+    numbers.forEach(el => {
+        switch (grid[el][0]){
+            case -1:
+                answer += "L";
+                L = el;
+                break;
+            case 1:
+                answer += "R";
+                R = el;
+                break;
+            case 0:
+                L_steps = Math.abs(grid[L][0] - grid[el][0]) + Math.abs(grid[L][1] - grid[el][1]);
+                R_steps = Math.abs(grid[R][0] - grid[el][0]) + Math.abs(grid[R][1] - grid[el][1]);
+                if(L_steps > R_steps){
+                    answer += "R";
+                    R = el;
+                } else if (L_steps < R_steps){
+                    answer += "L";
+                    L = el;
+                } else {
+                    answer += hand;
+                    eval(`${hand} = el`); //may affect performance?
+                }
+        }
+    });
+    return answer;
+}
