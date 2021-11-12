@@ -35,6 +35,12 @@ function solution(numbers, hand) {
   const right = [3, 6, 9, "#"];
   const middle = [2, 5, 8, 0];
   const left = [1, 4, 7, "*"];
+  const pad = [
+    [1, 2, 3],
+    [4, 5, 6],
+    [7, 8, 9],
+    ["*", 0, "#"],
+  ];
 
   let answer = "";
   let nowLeft = "*";
@@ -48,12 +54,91 @@ function solution(numbers, hand) {
       nowRight = n;
       answer += "R";
     } else {
-      
+      if (nowLeft === n) {
+        answer += "L";
+      } else if (nowRight === n) {
+        answer += "R";
+      } else if (middle.includes(nowLeft) && middle.includes(nowRight)) {
+        const leftPo = Math.abs(middle.indexOf(n) - middle.indexOf(nowLeft));
+        const rightPo = Math.abs(middle.indexOf(n) - middle.indexOf(nowRight));
+        if (leftPo === rightPo) {
+          if (hand === "right") {
+            nowRight = n;
+            answer += "R";
+          } else {
+            nowLeft = n;
+            answer += "L";
+          }
+        } else if (leftPo > rightPo) {
+          nowRight = n;
+          answer += "R";
+        } else {
+          nowLeft = n;
+          answer += "L";
+        }
+      } else if (middle.includes(nowLeft)) {
+        const leftPo = Math.abs(middle.indexOf(n) - middle.indexOf(nowLeft)) - 1;
+        const rightPo =
+          Math.abs(middle.indexOf(n) - right.indexOf(nowRight));
+        if (leftPo === rightPo) {
+          if (hand === "right") {
+            nowRight = n;
+            answer += "R";
+          } else {
+            nowLeft = n;
+            answer += "L";
+          }
+        } else if (leftPo > rightPo) {
+          nowRight = n;
+          answer += "R";
+        } else {
+          nowLeft = n;
+          answer += "L";
+        }
+      } else if (middle.includes(nowRight)) {
+        const leftPo = Math.abs(middle.indexOf(n) - left.indexOf(nowLeft));
+        const rightPo =
+          Math.abs(middle.indexOf(n) - middle.indexOf(nowRight)) - 1;
+        if (leftPo === rightPo) {
+          if (hand === "right") {
+            nowRight = n;
+            answer += "R";
+          } else {
+            nowLeft = n;
+            answer += "L";
+          }
+        } else if (leftPo > rightPo) {
+          nowRight = n;
+          answer += "R";
+        } else {
+          nowLeft = n;
+          answer += "L";
+        }
+      } else {
+        const leftPo = Math.abs(middle.indexOf(n) - left.indexOf(nowLeft));
+        const rightPo = Math.abs(middle.indexOf(n) - right.indexOf(nowRight));
+        if (leftPo === rightPo) {
+          if (hand === "right") {
+            nowRight = n;
+            answer += "R";
+          } else {
+            nowLeft = n;
+            answer += "L";
+          }
+        } else if (leftPo > rightPo) {
+          nowRight = n;
+          answer += "R";
+        } else {
+          nowLeft = n;
+          answer += "L";
+        }
+      }
     }
   });
   return answer;
 }
 
 console.log(solution([1, 3, 4, 5, 8, 2, 1, 4, 5, 9, 5], "right")); //	"LRLLLRLLRRL"
+                                                                   //  LRLLRLLLRRL
 // console.log(solution([7, 0, 8, 2, 8, 3, 1, 5, 7, 6, 2], "left")); // "LRLLRRLLLRR"
 // console.log(solution([1, 2, 3, 4, 5, 6, 7, 8, 9, 0], "right")); // "LLRLLRLLRL"
