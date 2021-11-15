@@ -22,10 +22,18 @@ num == 16 would return 4 steps:
 4 steps
 */
 
-function shortestStepsToNum(num) {
+/* function shortestStepsToNum(num) {
   let count = 0;
   while(true){
     if(num === 1) break;
+    num = Number.isInteger(num/2) ? num / 2 : num - 1;
+    count++;
+  }
+  return count;
+} */
+function shortestStepsToNum(num) {
+  let count = 0;
+  while(num > 1){
     num = Number.isInteger(num/2) ? num / 2 : num - 1;
     count++;
   }
