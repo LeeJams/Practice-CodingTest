@@ -33,28 +33,46 @@ skill	    skill_trees	                          return
 
 function solution(skill, skill_trees) {
   let count = 0;
-  for(let i = 0; i < skill_trees.length; i++){
+  skill_trees.forEach((n) => {
+    let hasSkill = [];
     let bool = true;
-    let temp = -1;
-    for(let j = 0; j < skill.length; j++){
-      if(temp > skill_trees[i].indexOf(skill[j])){
+    skill.split("").forEach((m, idx) => {
+      if (n.indexOf(m) !== -1) hasSkill.push([idx, n.indexOf(m)]);
+    });
+
+    for (let i = 0; i < hasSkill.length; i++) {
+      if (
+        hasSkill[i][0] !== i ||
+        (hasSkill[i + 1] && hasSkill[i][1] > hasSkill[i + 1][1])
+      ) {
         bool = false;
         break;
       }
-      if(j === skill.length - 1 && temp === -1 && skill_trees[i].indexOf(skill[j]) !== -1) {
-        bool = false;
-      }
-      temp = skill_trees[i].indexOf(skill[j]);
     }
-    if(bool) count++;
-  }
+
+    if (bool) count++;
+  });
+
   return count;
 }
 
-// console.log(solution("CBD",	["BACDE", "CBADF", "AECB", "BDA"])); // 2
-// console.log(solution("CBD",	["CAD"])); // 0
-// console.log(solution("CBD",	["AEF", "ZJW"])); // 2
-// console.log(solution("REA",	["REA", "POA"])); // 1
-// console.log(solution("CBDK",	["CB", "CXYB", "BD", "AECD", "ABC", "AEX", "CDB", "CBKD", "IJCB", "LMDK"])); // 4
-// console.log(solution("BDC",	["AAAABACA"])); // 0
-console.log(solution("CBD",	["C", "D", "CB", "BDA"])); // 2
+console.log(solution("CBD", ["BACDE", "CBADF", "AECB", "BDA"])); // 2
+console.log(solution("CBD", ["CAD"])); // 0
+console.log(solution("CBD", ["AEF", "ZJW"])); // 2
+console.log(solution("REA", ["REA", "POA"])); // 1
+console.log(
+  solution("CBDK", [
+    "CB",
+    "CXYB",
+    "BD",
+    "AECD",
+    "ABC",
+    "AEX",
+    "CDB",
+    "CBKD",
+    "IJCB",
+    "LMDK",
+  ])
+); // 4
+console.log(solution("BDC", ["AAAABACA"])); // 0
+console.log(solution("CBD", ["C", "D", "CB", "BDA"])); // 2
