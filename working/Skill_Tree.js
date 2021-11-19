@@ -56,23 +56,37 @@ function solution(skill, skill_trees) {
   return count;
 }
 
+function solution(skill, skill_trees) {
+  var regex = new RegExp(`[^${skill}]`, "g");
+
+  return skill_trees
+    .map((x) => {
+      console.log(x.replace(regex, ""));
+      return x.replace(regex, "");
+    })
+    .filter((x) => {
+      console.log(skill.indexOf(x));
+      return skill.indexOf(x) === 0 || x === "";
+    }).length;
+}
+
 console.log(solution("CBD", ["BACDE", "CBADF", "AECB", "BDA"])); // 2
-console.log(solution("CBD", ["CAD"])); // 0
-console.log(solution("CBD", ["AEF", "ZJW"])); // 2
-console.log(solution("REA", ["REA", "POA"])); // 1
-console.log(
-  solution("CBDK", [
-    "CB",
-    "CXYB",
-    "BD",
-    "AECD",
-    "ABC",
-    "AEX",
-    "CDB",
-    "CBKD",
-    "IJCB",
-    "LMDK",
-  ])
-); // 4
-console.log(solution("BDC", ["AAAABACA"])); // 0
-console.log(solution("CBD", ["C", "D", "CB", "BDA"])); // 2
+// console.log(solution("CBD", ["CAD"])); // 0
+// console.log(solution("CBD", ["AEF", "ZJW"])); // 2
+// console.log(solution("REA", ["REA", "POA"])); // 1
+// console.log(
+//   solution("CBDK", [
+//     "CB",
+//     "CXYB",
+//     "BD",
+//     "AECD",
+//     "ABC",
+//     "AEX",
+//     "CDB",
+//     "CBKD",
+//     "IJCB",
+//     "LMDK",
+//   ])
+// ); // 4
+// console.log(solution("BDC", ["AAAABACA"])); // 0
+// console.log(solution("CBD", ["C", "D", "CB", "BDA"])); // 2
