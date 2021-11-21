@@ -23,25 +23,31 @@ cache miss일 경우 실행시간은 5이다.
 */
 
 function solution(cacheSize, cities) {
+  let cacheMiss = false;
   if(!cities.length) return 0;
-  if(!cacheSize) cacheSize = 1;
+  if(!cacheSize) {
+    cacheSize = 1; 
+    cacheMiss = true
+  }
 
   cities = cities.map(n => n.toLowerCase());
 
-  let time = 5 * cacheSize;
-  const cashNow = cities.splice(0, cacheSize);
+  let time = 0;
+  const cashNow = [];
 
   while(cities.length){
     const next = cities.shift();
-    if(cashNow.includes(next))
+    if(cashNow.includes(next) && !cacheMiss)
       time += 1;
-    else
+    else {
       time += 5;
-    
-      cashNow.shift();
+      if(cashNow.length === cacheSize){
+        cashNow.shift();
+      }
       cashNow.push(next);
+    }
   }
-  
+
   return time;
 }
 
@@ -51,3 +57,4 @@ console.log(solution(2, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancis
 console.log(solution(5, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])); // 52
 console.log(solution(2, ["Jeju", "Pangyo", "NewYork", "newyork"])); // 16
 console.log(solution(0, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA"])); // 25
+console.log(solution(5, ["Seoul", "Seoul", "Seoul"])); // 7
