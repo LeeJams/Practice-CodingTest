@@ -1,4 +1,6 @@
 /* 
+https://programmers.co.kr/learn/courses/30/lessons/17680
+
 캐시
 지도개발팀에서 근무하는 제이지는 지도에서 도시 이름을 검색하면 해당 도시와 관련된 맛집 게시물들을 데이터베이스에서 읽어 보여주는 서비스를 개발하고 있다.
 이 프로그램의 테스팅 업무를 담당하고 있는 어피치는 서비스를 오픈하기 전 각 로직에 대한 성능 측정을 수행하였는데, 
@@ -37,9 +39,16 @@ function solution(cacheSize, cities) {
 
   while(cities.length){
     const next = cities.shift();
-    if(cashNow.includes(next) && !cacheMiss)
+    if(cashNow.includes(next) && !cacheMiss){
       time += 1;
-    else {
+      const idx = cashNow.indexOf(next);
+      if(idx === 0)
+        cashNow.splice(0, 1);
+      else
+        cashNow.splice(idx, idx);
+
+      cashNow.push(next);
+    }else {
       time += 5;
       if(cashNow.length === cacheSize){
         cashNow.shift();
@@ -57,4 +66,4 @@ console.log(solution(2, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancis
 console.log(solution(5, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])); // 52
 console.log(solution(2, ["Jeju", "Pangyo", "NewYork", "newyork"])); // 16
 console.log(solution(0, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA"])); // 25
-console.log(solution(5, ["Seoul", "Seoul", "Seoul"])); // 7
+console.log(solution(5, ["Seoul", "Seoul", "jeju", "Seoul"])); // 12
