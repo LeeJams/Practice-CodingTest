@@ -26,19 +26,16 @@ cache miss일 경우 실행시간은 5이다.
 
 function solution(cacheSize, cities) {
   let cacheMiss = false;
-  if(!cities.length) return 0;
   if(!cacheSize) {
     cacheSize = 1; 
     cacheMiss = true
   }
 
-  cities = cities.map(n => n.toLowerCase());
-
   let time = 0;
   const cashNow = [];
 
-  while(cities.length){
-    const next = cities.shift();
+  for(let i = 0; i < cities.length; i++){
+    const next = cities[i].toLowerCase();
     if(cashNow.includes(next) && !cacheMiss){
       time += 1;
       const idx = cashNow.indexOf(next);
