@@ -38,7 +38,7 @@ function solution(cacheSize, cities) {
     const next = cities[i].toLowerCase();
     if(cashNow.includes(next) && !cacheMiss){
       time += 1;
-      
+
       cashNow = cashNow.filter(n => n !== next);
       cashNow.push(next);
     }else {
@@ -53,10 +53,38 @@ function solution(cacheSize, cities) {
   return time;
 }
 
-console.log(solution(3, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"])); // 50
-console.log(solution(3, ["Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul"])); // 21
-console.log(solution(2, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])); // 60
-console.log(solution(5, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])); // 52
-console.log(solution(2, ["Jeju", "Pangyo", "NewYork", "newyork"])); // 16
-console.log(solution(0, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA"])); // 25
-console.log(solution(5, ["Seoul", "Seoul", "jeju", "Seoul"])); // 12
+
+function solution_good(cacheSize, cities) {
+    const MISS = 5, HIT = 1;
+
+    if (cacheSize === 0) return MISS * cities.length;
+
+    let answer = 0,
+        cache = [];
+
+    cities.forEach(city => {
+        city = city.toUpperCase();
+
+        let idx = cache.indexOf(city);
+
+        if (idx > -1) {
+            cache.splice(idx, 1);
+            answer += HIT;
+        } else {
+            if (cache.length >= cacheSize) cache.shift();
+            answer += MISS;
+        }
+
+        cache.push(city);
+    });
+
+    return answer;
+}
+
+console.log(solution_good(3, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "Jeju", "Pangyo", "Seoul", "NewYork", "LA"])); // 50
+console.log(solution_good(3, ["Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul", "Jeju", "Pangyo", "Seoul"])); // 21
+console.log(solution_good(2, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])); // 60
+console.log(solution_good(5, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA", "SanFrancisco", "Seoul", "Rome", "Paris", "Jeju", "NewYork", "Rome"])); // 52
+console.log(solution_good(2, ["Jeju", "Pangyo", "NewYork", "newyork"])); // 16
+console.log(solution_good(0, ["Jeju", "Pangyo", "Seoul", "NewYork", "LA"])); // 25
+console.log(solution_good(5, ["Seoul", "Seoul", "jeju", "Seoul"])); // 12
