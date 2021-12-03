@@ -32,18 +32,14 @@ function solution(cacheSize, cities) {
   }
 
   let time = 0;
-  const cashNow = [];
+  let cashNow = [];
 
   for(let i = 0; i < cities.length; i++){
     const next = cities[i].toLowerCase();
     if(cashNow.includes(next) && !cacheMiss){
       time += 1;
-      const idx = cashNow.indexOf(next);
-      if(idx === 0)
-        cashNow.splice(0, 1);
-      else
-        cashNow.splice(idx, idx);
-
+      
+      cashNow = cashNow.filter(n => n !== next);
       cashNow.push(next);
     }else {
       time += 5;
