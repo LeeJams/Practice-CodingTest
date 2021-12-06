@@ -18,7 +18,8 @@ b aa baa → bb aa → aa → 의 순서로 문자열을 모두 제거할 수 �
 문자열은 모두 소문자로 이루어져 있습니다.
 */
 
-function solution(s) {
+// 성능 개선 필요 - 답은 나옴
+/* function solution(s) {
   const reg = new RegExp(
     /aa|bb|cc|dd|ee|ff|gg|hh|ii|jj|kk|ll|mm|nn|oo|pp|qq|rr|ss|tt|uu|vv|ww|xx|yy|zz/g
   );
@@ -30,7 +31,51 @@ function solution(s) {
   } else {
     return solution(newOne);
   }
+} */
+
+/* function solution(s) {
+  const reg = new RegExp(
+    /aa|bb|cc|dd|ee|ff|gg|hh|ii|jj|kk|ll|mm|nn|oo|pp|qq|rr|ss|tt|uu|vv|ww|xx|yy|zz/g
+  );
+
+  while(true){
+    const newOne = s.replace(reg, "");
+    if (s === newOne) {
+      return 0;
+    } else if (newOne.length === 0) {
+      return 1;
+    } else {
+      s = newOne;
+    }
+  }
+} */
+function solution(s) {
+  //문자열이 홀수면 0
+  if (s.length % 2 != 0) return 0;
+
+  const answer = [];
+  const a = [...s];
+
+  for (let i = 0; i < a.length; i++) {
+    //문자 비교
+    if (a[i] == answer[answer.length - 1]) {
+      answer.pop();
+      continue;
+    }
+
+    //문자 입력
+    answer.push(a[i]);
+
+    //남은 문자의 개수가 현재까지 입력된 개수보다 적으면 0
+    if (a.length - i < answer.length) return 0;
+  }
+
+  return 1;
 }
 
 console.log(solution("baabaa"));
 console.log(solution("cdcd"));
+
+console.time("계산시간은 얼마나 걸릴까?");
+console.log(solution("abcdefggfedcba"));
+console.timeEnd("계산시간은 얼마나 걸릴까?");
