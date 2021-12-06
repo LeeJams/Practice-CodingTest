@@ -49,28 +49,17 @@ b aa baa → bb aa → aa → 의 순서로 문자열을 모두 제거할 수 �
     }
   }
 } */
-function solution(s) {
-  //문자열이 홀수면 0
-  if (s.length % 2 != 0) return 0;
+function solution(s)
+{
+    var stringToArray = s.split('');
+    var res = [];
 
-  const answer = [];
-  const a = [...s];
-
-  for (let i = 0; i < a.length; i++) {
-    //문자 비교
-    if (a[i] == answer[answer.length - 1]) {
-      answer.pop();
-      continue;
-    }
-
-    //문자 입력
-    answer.push(a[i]);
-
-    //남은 문자의 개수가 현재까지 입력된 개수보다 적으면 0
-    if (a.length - i < answer.length) return 0;
-  }
-
-  return 1;
+    for (var val of stringToArray){
+        if( val === res[res.length -1]){
+            res.pop() 
+        } else { res.push(val)}
+    } 
+    return res.length === 0 ? 1 : 0 ;
 }
 
 console.log(solution("baabaa"));
