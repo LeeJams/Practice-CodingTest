@@ -45,9 +45,13 @@ n	  words	                                                                      
 function solution(n, words) {
   var answer = [];
 
-  console.log('Hello Javascript')
+  words.forEach((n, idx) => {
+    if(answer.includes(n)) return []
 
-  return answer;
+    //마지막 단어와 첫 단어 비교
+
+    answer.push(n);
+  });
 }
 
 console.log(solution(3, ["tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"])); // [3, 3]
