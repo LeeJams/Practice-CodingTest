@@ -45,13 +45,27 @@ n	  words	                                                                      
 function solution(n, words) {
   var answer = [];
 
-  words.forEach((n, idx) => {
-    if(answer.includes(n)) return []
+  let per = 1;
+  let gameNum = 1;
+  for(let i = 0; i < words.length; i++){
+    if(answer.includes(words[i])) return [per, gameNum];
 
-    //마지막 단어와 첫 단어 비교
+    if(answer.length >= 1){
+      const before = answer[i - 1];
+      const after = words[i];
+      if(before[before.length-1] !== after[0]){
+        return [per, gameNum]
+      }
+    }
 
-    answer.push(n);
-  });
+    answer.push(words[i]);
+    per++;
+    if((i+1)%n === 0){
+      per = 1
+      gameNum++;
+    } 
+  }
+  return [0, 0];
 }
 
 console.log(solution(3, ["tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"])); // [3, 3]
