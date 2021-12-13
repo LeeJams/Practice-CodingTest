@@ -19,12 +19,12 @@ Example:
 
 function getMostProfitFromStockQuotes(quotes) {
   let sum = 0;
-  while(quotes.length > 0){
+  while (quotes.length > 0) {
     const max = Math.max(...quotes);
     const maxIdx = quotes.indexOf(max);
     console.log("maxIdx : ", maxIdx);
-  
-    for(let i = 0; i < maxIdx; i++){
+
+    for (let i = 0; i < maxIdx; i++) {
       sum += max - quotes[i];
     }
 
@@ -35,8 +35,18 @@ function getMostProfitFromStockQuotes(quotes) {
   return sum;
 }
 
-console.log(getMostProfitFromStockQuotes([ 1, 2, 3, 4, 5, 6 ])); // 15
-console.log(getMostProfitFromStockQuotes([ 6, 5, 4, 3, 2, 1 ])); // 0
-console.log(getMostProfitFromStockQuotes([ 1, 6, 5, 10, 8, 7 ])); // 18
-console.log(getMostProfitFromStockQuotes([ 1, 2, 10, 3, 2, 7, 3, 2])); // 26
-console.log(getMostProfitFromStockQuotes([952, 319, 933, 89, 443, 538, 488, 602])); // 1464
+function getMostProfitFromStockQuotes(quotes) {
+  let top = 0;
+  return quotes.reduceRight((acc, cur) => {
+    if (top < cur) top = cur;
+    return acc + top - cur;
+  }, 0);
+}
+
+console.log(getMostProfitFromStockQuotes([1, 2, 3, 4, 5, 6])); // 15
+console.log(getMostProfitFromStockQuotes([6, 5, 4, 3, 2, 1])); // 0
+console.log(getMostProfitFromStockQuotes([1, 6, 5, 10, 8, 7])); // 18
+console.log(getMostProfitFromStockQuotes([1, 2, 10, 3, 2, 7, 3, 2])); // 26
+console.log(
+  getMostProfitFromStockQuotes([952, 319, 933, 89, 443, 538, 488, 602])
+); // 1464
