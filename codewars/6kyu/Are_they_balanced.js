@@ -23,8 +23,14 @@ function balance(left,right){
   
   return leftVal === rightVal ? 'Balance' : leftVal > rightVal ? 'Left' : 'Right';
 }
+function balance_best(left,right){
+  let leftVal = [...left].reduce((acc, cur) => acc + (cur === '!' ? 2 : 3), 0);
+  let rightVal = [...right].reduce((acc, cur) => acc + (cur === '!' ? 2 : 3), 0);
+  
+  return leftVal === rightVal ? 'Balance' : leftVal > rightVal ? 'Left' : 'Right';
+}
 
-console.log(balance("!!","??")); // Right
-console.log(balance("!??","?!!")); // Left
-console.log(balance("!?!!","?!?")); // Left
-console.log(balance("!!???!????","??!!?!!!!!!!")); // Balance
+console.log(balance_best("!!","??")); // Right
+console.log(balance_best("!??","?!!")); // Left
+console.log(balance_best("!?!!","?!?")); // Left
+console.log(balance_best("!!???!????","??!!?!!!!!!!")); // Balance
