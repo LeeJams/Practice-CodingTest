@@ -50,10 +50,41 @@ course 배열의 크기는 1 이상 10 이하입니다.
 */
 
 function solution(orders, course) {
-  var answer = [];
-  return answer;
+  const check = [];
+  orders.forEach(n => {
+    const arr = n.split('');
+    if(arr.length === 2){
+      check.push(arr.join(''));
+    }else{
+      combination(arr, 2).forEach(m => {
+        check.push(m.join(''));
+      })
+      
+    }
+  })
+  const result = {}
+  check.forEach((x) => { 
+    result[x] = (result[x] || 0)+1; 
+  });
+  return result;
 }
 
-console.log(solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2,3,4])); // ["AC", "ACDE", "BCFG", "CDE"]
-console.log(solution(["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"], [2,3,5])); // ["ACD", "AD", "ADE", "CD", "XYZ"]
+function combination(arr, num) {
+  let result = [];
+  if(num == 1) return arr.map(e => [e]);
+  
+  arr.forEach((e,i,array) => {
+    let rest = array.slice(i+1);
+    let combinations = combination(rest,num-1);
+    let combiArr = combinations.map(x => [e, ...x]);
+    combiArr.forEach(n => {
+      n.sort();
+    })
+    result.push(...combiArr);
+  }) 
+  return result;
+}
+
+// console.log(solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2,3,4])); // ["AC", "ACDE", "BCFG", "CDE"]
+// console.log(solution(["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"], [2,3,5])); // ["ACD", "AD", "ADE", "CD", "XYZ"]
 console.log(solution(["XYZ", "XWY", "WXA"], [2,3,4])); // ["WX", "XY"]
