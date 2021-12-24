@@ -50,27 +50,32 @@ course 배열의 크기는 1 이상 10 이하입니다.
 */
 
 function solution(orders, course) {
-  const check = [];
-  orders.forEach(n => {
-    const arr = n.split('');
-    if(arr.length === 2){
-      check.push(arr.join(''));
-    }else{
-      combination(arr, 2).forEach(m => {
-        check.push(m.join(''));
-      })
-      
+  const checkResult = {}
+
+  for(let i = 0; i < course.length; i++){
+    for(let j = 0; j < orders.length; j++){
+      const arr = orders[j].split('');
+      if(arr.length < course[i]){
+        continue;
+      } else if(arr.length === course[i]){
+        const word = arr.sort().join('');
+        checkResult[word] = (checkResult[word] || 0)+1; 
+      }else{
+        combination(arr, course[i]).forEach(m => {
+          const word = m.join('');
+          checkResult[word] = (checkResult[word] || 0)+1; 
+        })
+      }
     }
-  })
-  const result = {}
-  check.forEach((x) => { 
-    result[x] = (result[x] || 0)+1; 
-  });
+  }
+
+  const result = Object.keys(checkResult).map((key) => [key, checkResult[key]]);
+
   return result;
 }
 
 function combination(arr, num) {
-  let result = [];
+  let checkResult = [];
   if(num == 1) return arr.map(e => [e]);
   
   arr.forEach((e,i,array) => {
@@ -80,11 +85,11 @@ function combination(arr, num) {
     combiArr.forEach(n => {
       n.sort();
     })
-    result.push(...combiArr);
+    checkResult.push(...combiArr);
   }) 
-  return result;
+  return checkResult;
 }
 
-// console.log(solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2,3,4])); // ["AC", "ACDE", "BCFG", "CDE"]
+console.log(solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2,3,4])); // ["AC", "ACDE", "BCFG", "CDE"]
 // console.log(solution(["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"], [2,3,5])); // ["ACD", "AD", "ADE", "CD", "XYZ"]
-console.log(solution(["XYZ", "XWY", "WXA"], [2,3,4])); // ["WX", "XY"]
+// console.log(solution(["XYZ", "XWY", "WXA"], [2,3,4])); // ["WX", "XY"]
