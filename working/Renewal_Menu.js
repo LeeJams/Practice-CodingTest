@@ -70,7 +70,7 @@ function solution(orders, course) {
   }
 
   const result = Object.keys(checkResult).map((key) => [key, checkResult[key]]);
-
+  console.log(result);
   return result;
 }
 
