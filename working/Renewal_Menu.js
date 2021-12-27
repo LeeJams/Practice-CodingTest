@@ -70,8 +70,11 @@ function solution(orders, course) {
   }
 
   const result = Object.keys(checkResult).reduce((acc, cur) => {
-    return acc.concat([cur, checkResult[cur]]);
+    if(checkResult[cur] > 1) {
+      return acc.concat([[cur, checkResult[cur]]]);
+    } else return acc;
   }, []);
+
   return result;
 }
 
@@ -91,8 +94,8 @@ function combination(arr, num) {
   return checkResult;
 }
 
-console.log(
-  solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4])
-); // ["AC", "ACDE", "BCFG", "CDE"]
+// console.log(
+//   solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4])
+// ); // ["AC", "ACDE", "BCFG", "CDE"]
 // console.log(solution(["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"], [2,3,5])); // ["ACD", "AD", "ADE", "CD", "XYZ"]
-// console.log(solution(["XYZ", "XWY", "WXA"], [2,3,4])); // ["WX", "XY"]
+console.log(solution(["XYZ", "XWY", "WXA"], [2,3,4])); // ["WX", "XY"]
