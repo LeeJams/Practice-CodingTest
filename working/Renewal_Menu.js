@@ -50,46 +50,49 @@ course 배열의 크기는 1 이상 10 이하입니다.
 */
 
 function solution(orders, course) {
-  const checkResult = {}
+  const checkResult = {};
 
-  for(let i = 0; i < course.length; i++){
-    for(let j = 0; j < orders.length; j++){
-      const arr = orders[j].split('');
-      if(arr.length < course[i]){
+  for (let i = 0; i < course.length; i++) {
+    for (let j = 0; j < orders.length; j++) {
+      const arr = orders[j].split("");
+      if (arr.length < course[i]) {
         continue;
-      } else if(arr.length === course[i]){
-        const word = arr.sort().join('');
-        checkResult[word] = (checkResult[word] || 0)+1; 
-      }else{
-        combination(arr, course[i]).forEach(m => {
-          const word = m.join('');
-          checkResult[word] = (checkResult[word] || 0)+1; 
-        })
+      } else if (arr.length === course[i]) {
+        const word = arr.sort().join("");
+        checkResult[word] = (checkResult[word] || 0) + 1;
+      } else {
+        combination(arr, course[i]).forEach((m) => {
+          const word = m.join("");
+          checkResult[word] = (checkResult[word] || 0) + 1;
+        });
       }
     }
   }
 
-  const result = Object.keys(checkResult).map((key) => [key, checkResult[key]]);
-  console.log(result);
+  const result = Object.keys(checkResult).reduce((acc, cur) => {
+    return acc.concat([cur, checkResult[cur]]);
+  }, []);
   return result;
 }
 
 function combination(arr, num) {
   let checkResult = [];
-  if(num == 1) return arr.map(e => [e]);
-  
-  arr.forEach((e,i,array) => {
-    let rest = array.slice(i+1);
-    let combinations = combination(rest,num-1);
-    let combiArr = combinations.map(x => [e, ...x]);
-    combiArr.forEach(n => {
+  if (num == 1) return arr.map((e) => [e]);
+
+  arr.forEach((e, i, array) => {
+    let rest = array.slice(i + 1);
+    let combinations = combination(rest, num - 1);
+    let combiArr = combinations.map((x) => [e, ...x]);
+    combiArr.forEach((n) => {
       n.sort();
-    })
+    });
     checkResult.push(...combiArr);
-  }) 
+  });
   return checkResult;
 }
 
-console.log(solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2,3,4])); // ["AC", "ACDE", "BCFG", "CDE"]
+console.log(
+  solution(["ABCFG", "AC", "CDE", "ACDE", "BCFG", "ACDEH"], [2, 3, 4])
+); // ["AC", "ACDE", "BCFG", "CDE"]
 // console.log(solution(["ABCDE", "AB", "CD", "ADE", "XYZ", "XYZ", "ACD"], [2,3,5])); // ["ACD", "AD", "ADE", "CD", "XYZ"]
 // console.log(solution(["XYZ", "XWY", "WXA"], [2,3,4])); // ["WX", "XY"]
