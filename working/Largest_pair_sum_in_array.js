@@ -18,6 +18,11 @@ function largestPairSum(numbers) {
     .reduce((acc, cur, idx) => (idx < 2 ? acc + cur : acc));
 }
 
+function largestPairSum(numbers) {
+  var [a, b] = numbers.sort((a, b) => b - a);
+  return a + b;
+}
+
 console.log(largestPairSum([10, 14, 2, 23, 19])); // 42
 console.log(largestPairSum([-100, -29, -24, -19, 19])); // 0
 console.log(largestPairSum([1, 2, 3, 4, 6, -1, 2])); // 10
