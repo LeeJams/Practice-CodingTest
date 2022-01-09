@@ -13,12 +13,14 @@ https://programmers.co.kr/skill_checks/336966
 
 */
 function solution(s){
-  var answer = true;
-
-  // [실행] 버튼을 누르면 출력 값을 볼 수 있습니다.
-  console.log('Hello Javascript')
-
-  return answer;
+  const arr = s.split('');
+  let car = 0;
+  for(let i = 0; i < arr.length; i++){
+    if(arr[i] === '(') car++
+    if(arr[i] === ')') car--
+    if(car < 0) return false
+  }
+  return car === 0;
 }
 
 console.log(solution("()()")); // true
