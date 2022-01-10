@@ -35,12 +35,21 @@ const data = [
     parents: 2,
   },
 ];
-const processedData = []
+const dataList = [];
+
+const recursive = (nodes, item) => {
+  nodes.forEach(node => {
+    if(node.id === item.parents) return node.children.push({...item, children: []});
+    else recursive(node.children, item);
+  })
+}
 
 data.forEach(item => {
-  recursive(item, processedData);
+  if(item.parents === null){
+    dataList.push({...item, children: []});
+  }else{
+    recursive(dataList, item);
+  }
 })
 
-const recursive = () => {
-  
-}
+console.log(dataList);
