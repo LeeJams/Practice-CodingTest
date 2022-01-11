@@ -26,6 +26,7 @@ function firstWay() {
 }
 
 /* -------------------- */
+// 순서 상관 없음
 function secondWay() {
   const dataList2 = result.data
     .filter((n) => n.parentDistSeqNo === null)
@@ -123,9 +124,38 @@ function thirdWay() {
   }
 } */
 
+function fourthWay() {
+  const lastDistLevel = result.data[result.data.length - 1].distLevel;
+
+  let baseData = result.data.filter((n) => n.distLevel === lastDistLevel);
+
+  for (let i = lastDistLevel - 1; i > 0; i--) {
+    const parentsData = result.data.filter((n) => n.distLevel === i);
+
+    baseData.forEach((item) => {
+      const idx = parentsData.findIndex(
+        (n) => n.distSeqNo === item.parentDistSeqNo
+      );
+      parentsData[idx].hasChildren = true;
+    });
+    baseData = parentsData;
+  }
+}
+function fifthWay() {
+  for (let i = result.data[result.data.length - 1].distLevel; i > 1; i--) {
+    const data = result.data.filter((n) => n.distLevel === i);
+    data.forEach((item) => {
+      const idx = result.data.findIndex(
+        (n) => n.distSeqNo === item.parentDistSeqNo
+      );
+      result.data[idx].hasChildren = true;
+    });
+  }
+}
+
 console.time("test");
-firstWay();
+fourthWay();
 console.timeEnd("test");
 console.time("test");
-thirdWay();
+fifthWay();
 console.timeEnd("test");
