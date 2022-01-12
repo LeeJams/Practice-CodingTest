@@ -159,3 +159,6 @@ console.timeEnd("test");
 console.time("test");
 fifthWay();
 console.timeEnd("test");
+console.time("test");
+firstWay();
+console.timeEnd("test");
