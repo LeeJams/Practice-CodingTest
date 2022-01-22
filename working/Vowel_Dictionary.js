@@ -22,3 +22,32 @@ function solution(word) {
   var answer = 0;
   return answer;
 }
+
+/* 
+1   A
+2   AA
+3   AAA
+4   AAAA
+5   AAAAA
+6   AAAAE
+7   AAAAI
+8   AAAAO
+9   AAAAU
+10  AAAE
+11  AAAEA
+12  AAAEE
+13  AAAEI
+14  AAAEO
+15  AAAEU
+16  AAAI
+17  AAAIA
+18  AAAIE
+19  AAAII
+20  AAAIO
+21  AAAIU
+22  AAAO
+28  AAAU
+34  AAE
+35  AAEA
+36  AAEAA
+*/
