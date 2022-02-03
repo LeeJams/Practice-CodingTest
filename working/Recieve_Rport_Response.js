@@ -41,8 +41,32 @@ k번 이상 신고된 유저는 게시판 이용이 정지되며, 해당 유저�
 각 유저별로 처리 결과 메일을 받은 횟수를 배열에 담아 return 하도록 solution 함수를 완성해주세요.
 */
 function solution(id_list, report, k) {
-  var answer = [];
-  return answer;
+  const list = {};
+
+  id_list.forEach(n => {
+    list[n] = new Set();
+  })
+
+  report.forEach(n => {
+    const arr = n.split(" ");
+    list[arr[0]].add(arr[1]);
+  });
+
+  const totalList = {};
+  for (const property in list) {
+    list[property].forEach(n => {
+      totalList[n] = (totalList[n] || 0) + 1;
+    });
+  }
+
+  const reportList = [];
+  for (const property in totalList) {
+    if(totalList[property] >= k){
+      reportList.push(property);
+    }
+  }
+
+  return id_list.map(n => [...list[n]].filter(m => reportList.includes(m)).length);
 }
 
 console.log(solution(["muzi", "frodo", "apeach", "neo"], ["muzi frodo", "apeach frodo", "frodo neo", "muzi neo", "apeach muzi"], 2)); //[2, 1, 1, 0]
