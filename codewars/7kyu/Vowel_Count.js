@@ -9,8 +9,12 @@ The input string will only consist of lower case letters and/or spaces.
 */
 
 function getCount(str) {
-  const vowel = ['a','e','i','o','u'];
-  return str.split("").filter(n => vowel.includes(n)).length;
+  const vowel = ["a", "e", "i", "o", "u"];
+  return str.split("").filter((n) => vowel.includes(n)).length;
 }
 
-console.log(getCount('abracadabra')); // 5
+function getCount(str) {
+  return (str.match(/[aeiou]/gi) || []).length;
+}
+
+console.log(getCount("abracadabra")); // 5
