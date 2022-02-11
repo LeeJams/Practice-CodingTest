@@ -28,7 +28,7 @@ Take a look at performance: some lists have thousands of elements.
 Please ask before translating.
 */
 
-function partsSums(ls) {
+/* function partsSums(ls) {
   const result = ls.map((n, i, arr) => {
     let sum = 0;
     for(let j = i; j < arr.length; j++){
@@ -39,6 +39,28 @@ function partsSums(ls) {
   result.push(0);
 
   return result;
+} */
+/* function partsSums(ls) {
+  const result = [];
+  for(let i = 0, n = ls.length; i < n; i++){
+    let sum = 0;
+    for(let j = i; j < n; j++){
+      sum += ls[j];
+    }
+    result.push(sum);
+  }
+  result.push(0);
+  return result;
+} */
+function partsSums(ls) {
+  const firstVal = ls.reduce((acc, cur) => acc + cur, 0);
+  const result = [firstVal]
+  ls.forEach((n, i) => {
+    result.push(result[i] - n);
+  })
+
+  return result;
 }
 
 console.log(partsSums([0, 1, 3, 6, 10])); // [20, 20, 19, 16, 10, 0]
+console.log(partsSums([744125, 935, 407, 454, 430, 90, 144, 6710213, 889, 810, 2579358])); // [10037855, 9293730, 9292795, 9292388, 9291934, 9291504, 9291414, 9291270, 2581057, 2580168, 2579358, 0]
