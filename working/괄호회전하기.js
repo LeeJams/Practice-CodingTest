@@ -26,37 +26,101 @@ function solution(s) {
   let result = 0;
   let arr = s.split("");
 
-  for(let i = 0; i < s.length; i++){
+  const open = ["[", "(", "{"];
+  const close = ["]", ")", "}"];
 
-    const checkNum = [0, 0, 0]
+  for (let i = 0; i < s.length; i++) {
     let check = true;
+    let start = [];
 
-    for(let j = 0; j < arr.length; j++){
-      if(arr[j] === "[") checkNum[0] += 1;
-      if(arr[j] === "]") checkNum[0] -= 1;
-      if(arr[j] === "(") checkNum[1] += 1;
-      if(arr[j] === ")") checkNum[1] -= 1;
-      if(arr[j] === "{") checkNum[2] += 1;
-      if(arr[j] === "}") checkNum[2] -= 1;
+    for (let j = 0; j < arr.length; j++) {
 
-      if(checkNum.includes(-1)) {
-        check = false
-        break;
+      if (open.includes(arr[j])) start.push(arr[j]);
+  
+      if (close.includes(arr[j])) {
+        if(!start.length){
+          check = false;
+          break;
+        }
+        const startIdx = open.indexOf(start[start.length-1]);
+        const endIdx = close.indexOf(arr[j])
+        
+        if(startIdx !== endIdx){
+          check = false;
+          break;
+        }
+        start.pop();
       }
+
     }
 
-    if(checkNum.filter(n => n !== 0).length){
-      check = false;
+    if(check){
+      result += !start.length ? 1 : 0;
     }
-    result += check ? 1 : 0;
-    arr = [...arr.slice(-1), ...arr.slice(0, arr.length -1)];
+    arr = [...arr.slice(-1), ...arr.slice(0, arr.length - 1)];
   }
 
   return result;
 }
+
+/* function solution(s) {
+  let result = 0;
+  let arr = s.split("");
+
+  let start = [];
+
+  const open = ["[", "(", "{"];
+  const close = ["]", ")", "}"];
+
+  for (let i = 0; i < s.length; i++) {
+    // const checkNum = [0, 0, 0];
+    let check = true;
+
+    for (let j = 0; j < arr.length; j++) {
+      // if (arr[j] === "[") checkNum[0] += 1;
+      // if (arr[j] === "]") checkNum[0] -= 1;
+      // if (arr[j] === "(") checkNum[1] += 1;
+      // if (arr[j] === ")") checkNum[1] -= 1;
+      // if (arr[j] === "{") checkNum[2] += 1;
+      // if (arr[j] === "}") checkNum[2] -= 1;
+
+      if (open.includes(arr[j])) start.push(arr[j]);
+  
+      if (close.includes(arr[j])) {
+        if(!start.length){
+          check = false;
+          break;
+        }
+        const startIdx = open.indexOf(start[start.length-1]);
+        const endIdx = close.indexOf(arr[j])
+        
+        if(startIdx !== endIdx){
+          check = false;
+          break;
+        }
+        start.pop();
+      }
+
+      // if (checkNum.includes(-1)) {
+      //   check = false;
+      //   break;
+      // }
+    }
+
+    // if (checkNum.filter((n) => n !== 0).length) {
+    //   check = false;
+    // }
+    result += check ? 1 : 0;
+    arr = [...arr.slice(-1), ...arr.slice(0, arr.length - 1)];
+  }
+
+  return result;
+} */
 
 console.log(solution("[](){}")); // 3
 console.log(solution("}]()[{")); // 2
 console.log(solution("[)(]")); // 0
 console.log(solution("}}}")); // 0
 console.log(solution("([{)}]")); // 0
+console.log(solution("([{}])")); // 0
+console.log(solution("((()")); // 0
