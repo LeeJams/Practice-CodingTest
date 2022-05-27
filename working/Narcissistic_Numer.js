@@ -10,7 +10,7 @@ Write a function that, given n, returns whether or not n is a Narcissistic Numbe
 */
 
 function isNarcissistic(n) {
-  return n.toString().split('').map((n, idx, arr) => parseInt(n) ** arr.length).reduce((acc, cur) => acc + cur) === n
+  return n.toString().split('').reduce((acc, cur, idx, arr) => acc + (cur ** arr.length), 0) === n
 }
 
 console.log(isNarcissistic(153)) // true
