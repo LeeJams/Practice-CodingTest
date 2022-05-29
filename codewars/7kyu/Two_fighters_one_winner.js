@@ -24,9 +24,29 @@ function Fighter(name, health, damagePerAttack) {
 }
 
 function declareWinner(fighter1, fighter2, firstAttacker) {
-  return "Write your code here";
+  while(fighter1.health > 0 && fighter2.health > 0){
+    if(fighter1.name === firstAttacker){
+      fighter2.health -= fighter1.damagePerAttack
+      firstAttacker = fighter2.name
+    }else{
+      fighter1.health -= fighter2.damagePerAttack
+      firstAttacker = fighter1.name
+    }
+  }
+  return firstAttacker === fighter1.name ? fighter2.name : fighter1.name;
+}
+function declareWinner_best(fighter1, fighter2, firstAttacker) {
+  const fac1 = Math.ceil( fighter1.health / fighter2.damagePerAttack );
+  const fac2 = Math.ceil( fighter2.health / fighter1.damagePerAttack );
+  if(fac1 < fac2) {
+    return fighter2.name;
+  } else if(fac2 < fac1) {
+    return fighter1.name;
+  } else {
+    return firstAttacker;
+  }
 }
 
-console.log(declareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Lew"), "Lew"));
-console.log(declareWinner(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Harry"), "Harry"));
-console.log(declareWinner(new Fighter("Harald", 20, 5), new Fighter("Harry", 5, 4), "Harry"), "Harald"));
+console.log(declareWinner_best(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Lew")); // Lew
+console.log(declareWinner_best(new Fighter("Lew", 10, 2), new Fighter("Harry", 5, 4), "Harry")); // Harry
+console.log(declareWinner_best(new Fighter("Harald", 20, 5), new Fighter("Harry", 5, 4), "Harry")); // Harald
