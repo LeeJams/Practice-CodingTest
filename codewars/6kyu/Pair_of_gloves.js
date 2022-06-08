@@ -14,9 +14,18 @@ input = ["red", "red", "red", "red", "red", "red"]
 result = 3 (3 red pairs)
 */
 
-function numberOfPairs(gloves)
-{
-  //My hands are freezing
+function numberOfPairs(gloves) {
+  const obj = gloves.reduce((acc, cur) => {
+    acc[cur] = acc[cur] !== undefined ? acc[cur] + 1 : 1;
+    return acc;
+  }, {});
+
+  let answer = 0;
+
+  for (let item of Object.keys(obj)) {
+    answer += Math.floor(obj[item] / 2);
+  }
+  return answer;
 }
 
 console.log(numberOfPairs(["red", "green", "red", "blue", "blue"])); // 2
