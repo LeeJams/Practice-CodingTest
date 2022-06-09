@@ -8,11 +8,11 @@ The input for each function is the output of the previous function (except the f
 Return the final value after execution is complete.
 */
 function add(x) {
-	return x + 10;	
+  return x + 10;
 }
 
 function mult(x) {
-	return x * 30;
+  return x * 30;
 }
 
 function chain(input, fs) {
@@ -23,4 +23,8 @@ function chain(input, fs) {
   return result;
 }
 
-console.log(chain(2, [add, mult])); // 360
+function chain_best(input, fs) {
+  return fs.reduce((acc, cur) => cur(acc), input);
+}
+
+console.log(chain_best(2, [add, mult])); // 360
