@@ -27,3 +27,4 @@ console.log(solution("()()")); // true
 console.log(solution("(())()")); // true
 console.log(solution(")()(")); // false
 console.log(solution("(()(")); // false
+console.log(solution("(()()(()))()")); // true
