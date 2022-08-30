@@ -100,8 +100,9 @@ function solution(N, road, K) {
   road.forEach((n) => {
     gr.addEdge(...n);
   });
-
+  console.log(gr.adjacencyList)
   const dij = gr.dijkstra();
+  console.log(dij)
   let result = 0;
   for (const key in dij) {
     if (dij[key] <= K) result++;
