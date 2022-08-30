@@ -33,33 +33,70 @@ gems	                                                                result
 ["ZZZ", "YYY", "NNNN", "YYY", "BBB"]	                                [1, 5]
 */
 function solution(gems) {
-  let answer = [0, gems.length]; // 가장 긴 길이로 초기화합니다.
-  let start = 0; // 첫 번째 포인터
-  let end = 0; // 두 번째 포인터
+  const answer = [0, gems.length];
 
-  const gemKinds = new Set(gems).size; // 겹치지 않는 보석의 갯수
-  const collect = new Map(); // 보석을 담아둘 변수
-  collect.set(gems[0], 1); // 시작하면서 첫 보석을 먼저 담는다
+  const listSize = new Set(gems).size;
+  const check = new Map();
 
-  while (start < gems.length && end < gems.length) { // 두 포인터가 끝에 도달한다면 종료
-    if (collect.size === gemKinds) { // 모든 보석을 구매할 수 있다면
-      if (end - start < answer[1] - answer[0]) { // 구간을 갱신
-        answer = [start + 1, end + 1];
+  let start = 0;
+  let end = 0;
+
+  check.set(gems[0], 1);
+
+  while (start < gems.length && end < gems.length) {
+    if (check.size === listSize) {
+      if (end - start < answer[1] - answer[0]) {
+        answer[0] = start + 1;
+        answer[1] = end + 1;
       }
 
-      collect.set(gems[start], collect.get(gems[start]) - 1); // 첫 번째 포인터에 해당하는 보석을 한 개 줄인다.
-
-      if (collect.get(gems[start]) === 0) { // 만약 0이 됐다면 목록에서 제거된다.
-        collect.delete(gems[start]);
+      const el = check.get(gems[start]);
+      if (el === 1) {
+        check.delete(gems[start]);
+      } else {
+        check.set(gems[start], el - 1);
       }
-      start += 1; // 첫 번째 포인터 증가
-    } else { // 모든 보석을 구매할 수 없다면
-      end += 1; // 두 번째 포인터 증가
-      collect.set(gems[end], 1 + (collect.get(gems[end]) || 0)); // 보석을 추가한다.
+      start++;
+    } else {
+      end++;
+      const item = check.get(gems[end]) || 0;
+      check.set(gems[end], item + 1);
     }
   }
+  return answer;
+}
 
-  return answer; // 결과 반환
+function solution(gems) {
+  const answer = [0, gems.length];
+
+  const listSize = new Set(gems).size;
+  const check = new Map();
+
+  let start = 0;
+  let end = 0;
+
+  check.set(gems[0], 1);
+
+  while (start < gems.length && end < gems.length) {
+    if (check.size === listSize) {
+      if (end - start < answer[1] - answer[0]) {
+        answer[0] = start + 1;
+        answer[1] = end + 1;
+      }
+
+      const el = check.get(gems[start]);
+      check.set(gems[start], el - 1);
+
+      if (check.get(gems[start]) === 0) check.delete(gems[start]);
+
+      start++;
+    } else {
+      end++;
+      const item = check.get(gems[end]) || 0;
+      check.set(gems[end], item + 1);
+    }
+  }
+  return answer;
 }
 
 console.log(
