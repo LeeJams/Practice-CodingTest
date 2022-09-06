@@ -8,7 +8,7 @@ cartItem의 항목을 ES6 문법을 이용해서 원하는 형태로 만들어 �
   totalMileage: 9400
 }
 
-ES6 - map() 과 reduce()를 활용
+Hint - ES6 filter(), map(), reduce()를 활용
 */
 
 const cartItem = [
@@ -33,10 +33,26 @@ const cartItem = [
     quantity: 2,
     isCheck: true,
   },
+  {
+    productName: "수분 팡팡 스킨",
+    salePrice: 17000,
+    mileage: 1700,
+    quantity: 4,
+    isCheck: true,
+  },
 ];
 
 function solution(cartItem) {
-  const result = {};
-  return result;
+  const result = {
+    totalPrice: 0,
+    totalQty: 0,
+    totalMileage: 0,
+  };
+  return cartItem.filter(n => n.isCheck).reduce((acc, cur) => {
+      acc.totalPrice = acc.totalPrice + cur.salePrice * cur.quantity
+      acc.totalQty = acc.totalQty + cur.quantity
+      acc.totalMileage = acc.totalMileage + cur.mileage * cur.quantity
+      return acc
+  }, result);
 }
-console.log(solution(cartItem))
+console.log(solution(cartItem));
