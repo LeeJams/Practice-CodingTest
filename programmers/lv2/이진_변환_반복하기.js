@@ -55,7 +55,7 @@ function solution(s) {
   const answer = [0,0];
   while(s.length > 1) {
       const zeros = (s.match(/0/g) || []).length
-      answer[0]++;
+      answer[0] += 1;
       answer[1] += zeros;
       s = (s.length - zeros).toString(2);
   }
