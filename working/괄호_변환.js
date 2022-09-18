@@ -45,6 +45,7 @@ p	            result
 
 function solution(p) {
   var answer = '';
+  console.log("test");
   return answer;
 }
 
