@@ -55,3 +55,5 @@ function solution(s) {
 
   return [...set];
 }
+
+console.log(solution("{{2},{2,1},{2,1,3},{2,1,3,4}}"));
