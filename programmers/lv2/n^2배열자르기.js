@@ -36,6 +36,15 @@ function solution(n, left, right) {
   }
   return answer.slice(left, right + 1);
 }
+function solution(n, left, right) {
+  const answer = [];
+  for (let i = left; i <= right; i++) {
+    if (Math.floor(i / n) >= i % n) answer.push(Math.floor(i / n) + 1);
+    else answer.push((i % n) + 1);
+  }
+  return answer;
+}
 
-console.log(solution(3, 2, 5));
-console.log(solution(4, 7, 14));
+// console.log(solution(3, 2, 5));
+// console.log(solution(4, 7, 14));
+console.log(solution(5, 5, 15));
