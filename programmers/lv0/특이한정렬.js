@@ -16,20 +16,27 @@ numlist	n	result
 */
 function solution(numlist, n) {
   return numlist.sort((a, b) => {
-      const aa = Math.abs(n - a);
-      const bb = Math.abs(n - b);
-      if (aa - bb > 0) {
-          return 1;            
-      } else if (aa - bb < 0) {
-          return -1;
-      } else {
-          if(aa > bb){
-              return 1;
-          }else{
-              return -1;
-          }
+    const aa = Math.abs(n - a);
+    const bb = Math.abs(n - b);
+    if (aa > bb && a > b) {
+      return 1;
+    } else if (aa < bb && a < b) {
+      return -1;
+    } else {
+      if (a - b < 0) {
+        return 1;
+      } else if (a - b > 0) {
+        return -1;
+      }else{
+        return 0
       }
+    }
   });
 }
 
-console.log(solution([1, 2, 3, 4, 5, 6], 3));
+function solution(numlist, n) {
+    return numlist.sort((a, b) => Math.abs(a - n) - Math.abs(b - n) || b - a);
+  }
+
+console.log(solution([10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 11], 6));
+console.log(solution([1, 2, 3, 4, 5, 6], 4));
