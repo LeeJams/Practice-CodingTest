@@ -42,15 +42,24 @@ function solution(ingredient) {
 
   return answer;
 }
+
 function solution(ingredient) {
   let answer = 0;
-  let str = "";
-
+  const arr = [];
   for (let i = 0; i < ingredient.length; i++) {
-    str += ingredient[i] + "";
-    if (str.includes("1231")) {
-      str = str.substring(0, str.length - 3);
-      answer++;
+    arr.push(ingredient[i]);
+    const len = arr.length;
+    if (len >= 4) {
+      console.log('arr = ', arr);
+      const str = `${arr[len - 4]}${arr[len - 3]}${arr[len - 2]}${arr[len - 1]}`;
+      console.log(str);
+      if (str === "1231") {
+        arr.pop();
+        arr.pop();
+        arr.pop();
+        arr.pop();
+        answer++;
+      }
     }
   }
   return answer;
