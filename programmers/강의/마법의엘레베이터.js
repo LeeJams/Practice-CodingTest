@@ -26,6 +26,26 @@ function solution(number) {
   return answer;
 }
 
+function solution(storey) {
+  let answer = Number.MAX_SAFE_INTEGER;
+
+  const dfs = (num, counter) => {
+    if (counter >= answer) return;
+    if (num === 0) {
+      answer = counter;
+      return;
+    }
+
+    let res = num % 10;
+
+    dfs((num - res) / 10, counter + res);
+    dfs((num - res) / 10 + 1, counter + 10 - res);
+  };
+
+  dfs(storey, 0);
+  return answer;
+}
+
 console.log(solution(16)); // 6
 console.log(solution(2554)); // 16
 console.log(solution(2664)); // 14
