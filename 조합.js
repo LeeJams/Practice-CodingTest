@@ -1,4 +1,4 @@
-function combinations(arr, n) {
+function combination(arr, n) {
   // 1개만 뽑는다면 그대로 조합을 반환한다. 탈출 조건으로도 사용된다.
   if (n === 1) return arr.map((v) => [v]);
   const result = [];
@@ -9,7 +9,7 @@ function combinations(arr, n) {
     // index번째는 선택된 요소
     const rest = arr.slice(idx + 1);
     // 선택된 요소 이전 요소들을 제외하고 재귀 호출한다.
-    const combis = combinations(rest, n - 1);
+    const combis = combination(rest, n - 1);
     // 선택된 요소와 재귀 호출을 통해 구한 조합을 합쳐준다.
     const combine = combis.map((v) => [fixed, ...v]);
     // 결과 값을 추가한다.
@@ -20,4 +20,23 @@ function combinations(arr, n) {
   return result;
 }
 
-console.log(combinations([1, 2, 3, 4], 3));
+console.log(combination([1, 2, 3, 4], 3));
+
+function combinations(n, arr) {
+  const answer = [];
+  const temp = [];
+
+  function DFS(L, s) {
+    if (L === n) answer.push(temp.slice());
+    else {
+      for (let i = s; i <= arr.length; i++) {
+        temp[L] = arr[i - 1];
+        DFS(L + 1, i + 1);
+      }
+    }
+  }
+  DFS(0, 1);
+
+  return answer;
+}
+console.log(combinations(2, [1, 2, 3, 4]));

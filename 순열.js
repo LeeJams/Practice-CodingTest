@@ -41,5 +41,30 @@ function permutations(arr, n) {
   return result;
 }
 
+function permutations(n, arr) {
+  const answer = [];
+  const temp = [];
+  const ch = Array.from({ length: n }, () => 0);
+
+  function DFS(L) {
+    if (L === n) {
+      answer.push(temp.slice());
+    } else {
+      for (let i = 0; i < arr.length; i++) {
+        if (!ch[i]) {
+          ch[i] = 1;
+          temp[L] = arr[i];
+          DFS(L + 1);
+          ch[i] = 0;
+        }
+      }
+    }
+  }
+  DFS(0);
+
+  return answer;
+}
+console.log(permutations(2, [1, 2, 3]));
+
 console.log(getPermutations([1, 7, 9, 6]));
 console.log(permutations([1, 7, 9, 6], 3));
