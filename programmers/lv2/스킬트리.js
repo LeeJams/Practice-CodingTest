@@ -70,6 +70,20 @@ function solution(skill, skill_trees) {
     }).length;
 }
 
+function solution(skill, skill_trees) {
+  const arr = skill.split("");
+  
+  return skill_trees.filter(item => {
+      let idx = 0;
+      for(let i = 0; i < item.length; i++) {
+          if(!skill.includes(item[i])) continue;
+          if(item[i] === arr[idx++]) continue;
+          return false
+      }
+      return true;
+  }).length;
+}
+
 console.log(solution("CBD", ["BACDE", "CBADF", "AECB", "BDA"])); // 2
 console.log(solution("CBD", ["CAD"])); // 0
 console.log(solution("CBD", ["AEF", "ZJW"])); // 2
